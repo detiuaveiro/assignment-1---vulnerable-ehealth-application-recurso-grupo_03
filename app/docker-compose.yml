@@ -1,9 +1,9 @@
 version: "3.9"
 services:
-  web:
-    build: .
-    ports:
-      - "5050:5000"
+#  web:
+#    build: .
+#    ports:
+#      - "5050:5000"
 
   db:
     image: mysql
@@ -16,7 +16,8 @@ services:
     ports:
       - "5051:3306/tcp"
     volumes:
-      - db_data:/var/lib/mysql
+#      - db_data:/var/lib/mysql Caso não seja preciso a persistência dos dados entre reloads
+      - ./db:/docker-entrypoint-initdb.d:ro
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: unless-stopped
