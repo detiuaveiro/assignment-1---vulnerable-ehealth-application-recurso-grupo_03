@@ -7,7 +7,7 @@ TEMPLATE_DIR = path.relpath('./templates')
 app = Flask(__name__,template_folder=TEMPLATE_DIR)
 load_dotenv(".env")
 
-connection = pymysql.connect(host="localhost", port=5051, user='admin', password='admin', database='ecorp', cursorclass=pymysql.cursors.DictCursor)
+connection = pymysql.connect(host=environ.get("MYSQL_HOST"), port=int(environ.get("MYSQL_PORT")), user='admin', password='admin', database='ecorp', cursorclass=pymysql.cursors.DictCursor)
 
 @app.route('/')
 def index():
