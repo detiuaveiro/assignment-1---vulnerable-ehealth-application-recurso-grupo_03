@@ -20,7 +20,6 @@ def create_app():
 
     with app.app_context():
         db.create_all()
-        #create admin user
         admin = User.query.filter_by(email='admin@localhost').first()
         if admin is None:
             admin = User(email='admin@localhost', password='admin', name='admin')
