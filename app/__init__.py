@@ -21,7 +21,7 @@ def create_app():
     with app.app_context():
         db.create_all()
         admin = User.query.filter_by(email='admin@localhost').first()
-        if admin is None:
+        if not admin:
             admin = User(email='admin@localhost', password='admin', name='admin')
             db.session.add(admin)
             db.session.commit()
