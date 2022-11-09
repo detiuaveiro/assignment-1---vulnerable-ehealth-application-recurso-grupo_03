@@ -10,14 +10,14 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: ecorp
+      MYSQL_DATABASE: ehealth
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
     ports:
       - "5051:3306/tcp"
     volumes:
-#      - db_data:/var/lib/mysql Caso não seja preciso a persistência dos dados entre reloads
-      - ./db:/docker-entrypoint-initdb.d:ro
+      - db_data:/var/lib/mysql Caso não seja preciso a persistência dos dados entre reloads
+      #- ./db:/docker-entrypoint-initdb.d:ro
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: unless-stopped
