@@ -29,3 +29,10 @@ class Drug(db.Model):
 class Specialization(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(1000))
+
+class Contact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    phone = db.Column(db.String(100))
+    message = db.Column(db.String(1000))
