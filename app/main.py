@@ -12,3 +12,7 @@ def index():
 def profile():
     return render_template('profile.html', name=current_user.name)
 
+@main.route('/appointment')
+@login_required
+def appointment():
+    return render_template('appointment.html', name=current_user.name )
