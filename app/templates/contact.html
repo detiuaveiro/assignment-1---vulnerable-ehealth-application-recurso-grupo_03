@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static',filename='/css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='/css/styles.css') }}">
 {% endblock %}
 {% block content %}
-    <body>
+
+<body>
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
@@ -28,28 +29,28 @@
                                                 <div class="form-group">
                                                     <label class="label" for="name">Full Name</label>
                                                     <input type="text" class="form-control" name="name" id="name"
-                                                           placeholder="Name">
+                                                        placeholder="Name">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="label" for="email">Email Address</label>
                                                     <input type="email" class="form-control" name="email" id="email"
-                                                           placeholder="Email">
+                                                        placeholder="Email">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="label" for="subject">Subject</label>
                                                     <input type="text" class="form-control" name="subject" id="subject"
-                                                           placeholder="Subject">
+                                                        placeholder="Subject">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="label" for="#">Message</label>
                                                     <textarea name="message" class="form-control" id="message" cols="30"
-                                                              rows="4" placeholder="Message"></textarea>
+                                                        rows="4" placeholder="Message"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -106,9 +107,8 @@
             </div>
         </div>
     </section>
-
-    </body>
+</body>
 {% endblock %}
 {% block scripts %}
-    <script src="{{ url_for('static',filename='/js/main.js') }}"></script>
+<script src="{{ url_for('static',filename='/js/main.js') }}"></script>
 {% endblock %}

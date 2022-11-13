@@ -42,7 +42,7 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    from .contact import contact as contact_blueprint
+    from .contact import ctc as contact_blueprint
     app.register_blueprint(contact_blueprint)
 
     return app
