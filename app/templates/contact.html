@@ -27,7 +27,7 @@
                                     <div id="form-message-success" class="mb-4">
                                         Your message was sent, thank you!
                                     </div>
-                                    <form method="POST" id="contactForm" name="contactForm" class="contactForm">
+                                    <form method="POST" action="/contact" id="contactForm" name="contactForm" class="contactForm">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -82,5 +82,5 @@
 </body>
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for('static',filename='/js/main.js') }}"></script>
+{#<script src="{{ url_for('static',filename='/js/main.js') }}"></script>#}
 {% endblock %}

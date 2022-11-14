@@ -22,15 +22,9 @@ def create_app():
         db.create_all()
         admin = User.query.filter_by(email='admin@localhost').first()
         if not admin:
-            admin = User(email='admin@localhost', password='admin', name='admin')
+            admin = User(email='admin@localhost', password='admin', name='admin', isAdmin=True)
             db.session.add(admin)
             db.session.commit()
-
-        # Read SQL data and execute it
-        # with open('inserts.sql', 'r') as f:
-        #     for line in f:
-        #         db.session.execute(line)
-        #         db.session.commit()
 
     @login_manager.user_loader
     def load_user(user_id):
@@ -44,5 +38,11 @@ def create_app():
 
     from .contact import ctc as contact_blueprint
     app.register_blueprint(contact_blueprint)
+
+    from .appointment import apt as appointment_blueprint
+    app.register_blueprint(appointment_blueprint)
+
+    from .test import tst as test_blueprint
+    app.register_blueprint(test_blueprint)
 
     return app
