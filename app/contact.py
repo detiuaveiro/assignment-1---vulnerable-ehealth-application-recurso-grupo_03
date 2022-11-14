@@ -4,8 +4,15 @@ from . import db
 
 ctc = Blueprint('ctc', __name__)
 
-@ctc.route('/contact', methods=['POST'])
+
+@ctc.route('/contact')
 def contact():
+	print("hello")
+	return render_template('contact.html')
+
+
+@ctc.route('/contact', methods=['POST'])
+def contact_post():
 	name = request.form.get('name')
 	email = request.form.get('email')
 	phone = request.form.get('phone')
