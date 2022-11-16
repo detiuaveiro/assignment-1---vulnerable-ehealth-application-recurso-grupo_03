@@ -1,48 +1,50 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, Flask
 from flask_login import login_required, current_user
 from .models import User
 from . import db
+import os
 
 prof = Blueprint('profile', __name__)
-
 
 @prof.route('/profile')
 @login_required
 def profile():
 	user = User.query.filter_by(id=current_user.id).first()
-	print(user)
 	return render_template('profile.html', user=user)
 
-
-
-
-
-
-#@prof.route('/change_password', methods=['POST'])
-@prof.route('/change_password/<user>', methods=['POST'])
+@prof.route('/edit_profile/<id>', methods=['GET'])
 @login_required
-#def change_password():
-def change_password(user):
-	# if user == 'admin':
-		#password = request.form.get('password')
-	newpassword = request.form.get('newpassword')
-	confirmnewpassword = request.form.get('confirmnewpassword')
-	user = User.query.filter_by(id=user.id).first()
-	# user = User.query.filter_by(id="session["user"]?").first()
-		# if user.password != password:
-	if newpassword != confirmnewpassword:
-		flash('Passwords do not match.')
-		return redirect(url_for('/profile'))
-	else:
-		try:
-			user.password = newpassword
-			db.session.commit()
-			flash('Password updated successfully.')
-			return redirect(url_for('/profile'))
-		except Exception as e:
-			flash('There was an issue updating your password.')
-			print(e)
-			return redirect(url_for('/profile'))
+def edit_page(id):
+	user = User.query.filter_by(id=id).first()
+	return render_template('edit_profile.html', user=user)
 
-# POR TESTAR, FALTA UM FORM, CWE ESTARÁ NA NÃO VERIFICAÇÃO DE SE O USER QUE PEDE PARA MUDAR A PASSWORD É O MESMO QUE ESTÁ LOGADO
-# NÃO SEI ATÉ QUE PONTO ISTO NÃO É OUTRA CWE UMA VEZ QUE UTILIZA O URL PARA PASSAR O ID DO USER
+@prof.route('/edit_profile/<id>', methods=['Post'])
+@login_required
+def edit_profile(id):
+	email = request.form.get('email')
+	address = request.form.get('address')
+	contact = request.form.get('contact')
+	image = request.files.get('image')
+	new_password = request.form.get('new_password')
+	confirm_new_password = request.form.get('confirm_new_password')
+
+	user = User.query.filter_by(id=id).first()
+	if new_password:
+		if new_password == confirm_new_password:
+			user.password = new_password
+		else:
+			flash('Passwords do not match.')
+			return redirect(url_for('profile.edit_profile'))
+	
+	if email:
+		user.email = email
+	if address:
+		user.morada = address
+	if contact:
+		user.contact = contact
+	if image:
+		user.image = image.filename
+		image.save(os.path.join("app/static/pictures",image.filename))
+	
+	db.session.commit()
+	return redirect(url_for('profile.profile'))
