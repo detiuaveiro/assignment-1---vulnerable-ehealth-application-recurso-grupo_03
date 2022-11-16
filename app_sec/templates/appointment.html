@@ -53,6 +53,7 @@
                                                 <label class="label" for="#">Time</label>
                                                 <input type="time" class="form-control" name="time" id="time"
                                                        placeholder="Time">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">

@@ -8,7 +8,6 @@ from app.models import User, Report
 tst = Blueprint("tst", __name__)
 
 @tst.route("/test/<user_id>/", methods=["GET"])
-@login_required
 def test(user_id=None):
     user = User.query.filter_by(id=user_id).first()
     report = Report.query.filter_by(patientId=user_id).first()

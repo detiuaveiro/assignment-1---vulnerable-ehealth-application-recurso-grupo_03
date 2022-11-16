@@ -10,7 +10,7 @@ csrf = CSRFProtect()
 
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='static', static_url_path='/static')
-    app.config['SECRET_KEY'] = 'shhhsecret'
+    app.config['SECRET_KEY'] = 'HELLO WORLD'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
     db.init_app(app)
@@ -47,8 +47,8 @@ def create_app():
     from .appointment import apt as appointment_blueprint
     app.register_blueprint(appointment_blueprint)
 
-    from .report import rpt as rpt_blueprint
-    app.register_blueprint(rpt_blueprint)
+    from .test import tst as tst_blueprint
+    app.register_blueprint(tst_blueprint)
 
     from .utils import utl as utils_blueprint
     app.register_blueprint(utils_blueprint)
