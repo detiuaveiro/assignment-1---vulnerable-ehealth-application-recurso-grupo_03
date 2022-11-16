@@ -47,8 +47,8 @@ def create_app():
     from .appointment import apt as appointment_blueprint
     app.register_blueprint(appointment_blueprint)
 
-    from .test import tst as test_blueprint
-    app.register_blueprint(test_blueprint)
+    from .report import rpt as rpt_blueprint
+    app.register_blueprint(rpt_blueprint)
 
     from .utils import utl as utils_blueprint
     app.register_blueprint(utils_blueprint)

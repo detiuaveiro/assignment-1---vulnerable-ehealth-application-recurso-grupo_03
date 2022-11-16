@@ -2,9 +2,9 @@ import pdfkit
 from flask import Blueprint, request, render_template, make_response
 from flask_login import login_required
 
-tst = Blueprint("tst", __name__)
+rpt = Blueprint("rpt", __name__)
 
-@tst.route("/test", methods=["GET"])
+@rpt.route("/report", methods=["GET"])
 @login_required
 def test():
     name = request.args.get('name', type=str)
