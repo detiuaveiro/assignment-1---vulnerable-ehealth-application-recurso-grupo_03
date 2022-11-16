@@ -7,7 +7,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login')
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.profile'))
+        return redirect(url_for('profile.profile'))
     else:
         return render_template('login.html')
 
@@ -23,7 +23,7 @@ def login_post():
         return redirect(url_for('auth.login'))
 
     login_user(user)
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('profile.profile'))
 
 
 @auth.route('/logout', methods=['GET'])

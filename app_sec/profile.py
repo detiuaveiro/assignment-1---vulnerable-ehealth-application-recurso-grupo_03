@@ -14,7 +14,7 @@ def profile():
 
 @prof.route('/edit_profile/')
 @login_required
-def edit_page(id):
+def edit_page():
 	user = User.query.filter_by(id=current_user.id).first()
 	return render_template('edit_profile.html', user=user)
 
@@ -50,7 +50,7 @@ def edit_profile():
 			user.contact = contact
 		if image:
 			user.image = image.filename
-			image.save(os.path.join("app/static/pictures",image.filename))
+			image.save(os.path.join("app_sec/static/pictures",image.filename))
 		db.session.commit()
 	else:
 		flash('Wrong password.')

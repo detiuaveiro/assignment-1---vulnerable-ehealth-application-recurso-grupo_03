@@ -16,7 +16,7 @@
     <div class="inputBox" style="z-index: 10;">
         <img class="user" src="{{ url_for('static',filename='assets/img/login-icon.png') }}" height="100px" width="100px" >
         <h3>Edit Profile</h3>
-        <form action="/edit_profile/{{user.id}}" method="post" enctype = "multipart/form-data">
+        <form action="/edit_profile" method="post" enctype = "multipart/form-data">
             <div class="form-group">
                 <!--Show Flashed Messages-->
                 {% with messages = get_flashed_messages() %}
@@ -46,8 +46,10 @@
                     <input id="pass" type="password" name="confirm_new_password" placeholder="Confirm New Password">
                 </div>
             </div>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <input type="submit" value="UPDATE">
         </form>
+        
     </div>
 </div>
 </body>
