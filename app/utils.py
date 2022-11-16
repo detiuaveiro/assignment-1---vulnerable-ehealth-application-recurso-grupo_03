@@ -1,6 +1,6 @@
-from flask import Blueprint, url_for, jsonify
+from flask import Blueprint, jsonify
 from app import db
-from app.models import User, Appointment
+from app.models import User, Appointment, Report
 
 utl = Blueprint('util', __name__)
 
@@ -9,7 +9,7 @@ utl = Blueprint('util', __name__)
 def generateusers():
     db.session.execute("DELETE FROM user WHERE isAdmin = false;")
     db.session.commit()
-    users =[{
+    users = [{
         "name": "Glory Powley",
         "email": "gpowley0@noaa.gov",
         "password": "a8dQZpjEg",
@@ -83,6 +83,7 @@ def generateadmin():
         print(e)
         return jsonify({'success': False})
 
+
 @utl.route('/util/generate/appointments', methods=['GET'])
 def generate_appointments():
     users = User.query.all()
@@ -91,65 +92,55 @@ def generate_appointments():
 
     db.session.execute("DELETE FROM appointment;")
     appointments = [{
-        "patientId": 1,
-        "subject": "1319",
-        "date": "8/2/2022",
-        "time": "1:23 AM",
-        "description": "Puncture wound without foreign body of unspecified shoulder, sequela"
-    }, {
-        "patientId": 8,
-        "subject": "544",
-        "date": "9/24/2022",
-        "time": "5:34 PM",
-        "description": "Pedestrian injured in unspecified traffic accident, sequela"
-    }, {
-        "patientId": 9,
-        "subject": "8446",
-        "date": "10/5/2022",
-        "time": "12:05 PM",
-        "description": "Non-follicular (diffuse) lymphoma, unspecified, lymph nodes of head, face, and neck"
-    }, {
-        "patientId": 8,
-        "subject": "8865",
-        "date": "1/25/2022",
-        "time": "9:50 AM",
-        "description": "Displaced fracture of proximal phalanx of unspecified thumb, subsequent encounter for fracture with delayed healing"
-    }, {
-        "patientId": 2,
-        "subject": "8332",
-        "date": "8/3/2022",
-        "time": "10:47 PM",
-        "description": "Intentional self-harm by drowning and submersion after jump into swimming pool"
-    }, {
-        "patientId": 2,
-        "subject": "0784",
-        "date": "2/27/2022",
-        "time": "8:29 AM",
-        "description": "Subluxation of other carpometacarpal joint of right hand, initial encounter"
+        "patientId": 3,
+        "date": "9/9/2022",
+        "description": "Spontaneous abortion, complicated by delayed or excessive hemorrhage, unspecified",
+        "code": "8536425261"
     }, {
         "patientId": 7,
-        "subject": "6093",
-        "date": "3/20/2022",
-        "time": "8:16 AM",
-        "description": "Unspecified fracture of unspecified ilium, initial encounter for closed fracture"
+        "date": "2/17/2022",
+        "description": "Old bucket handle tear of medial meniscus",
+        "code": "6280159361"
     }, {
-        "patientId": 6,
-        "subject": "8127",
-        "date": "12/19/2021",
-        "time": "9:37 AM",
-        "description": "Other congenital malformations of pancreas and pancreatic duct"
+        "patientId": 1,
+        "date": "9/11/2022",
+        "description": "Open wound(s) (multiple) of unspecified site(s), without mention of complication",
+        "code": "4127982381"
     }, {
-        "patientId": 9,
-        "subject": "8372",
-        "date": "7/11/2022",
-        "time": "3:23 AM",
-        "description": "Unspecified intracapsular fracture of left femur, subsequent encounter for open fracture type IIIA, IIIB, or IIIC with nonunion"
+        "patientId": 4,
+        "date": "6/6/2022",
+        "description": "Obstruction by abnormal pelvic soft tissues during labor, delivered, with or without mention of antepartum condition",
+        "code": "0877142262"
+    }, {
+        "patientId": 8,
+        "date": "10/27/2022",
+        "description": "Other motor vehicle nontraffic accident while boarding and alighting injuring passenger in motor vehicle other than motorcycle",
+        "code": "4171699363"
+    }, {
+        "patientId": 2,
+        "date": "11/19/2021",
+        "description": "Acute nonparalytic poliomyelitis, poliovirus type I",
+        "code": "0148986021"
+    }, {
+        "patientId": 4,
+        "date": "4/1/2022",
+        "description": "Unspecified surgical operations and procedures causing abnormal patient reaction, or later complication, without mention of misadventure at time of operation",
+        "code": "5709499218"
+    }, {
+        "patientId": 3,
+        "date": "6/22/2022",
+        "description": "Acute myocardial infarction of anterolateral wall, subsequent episode of care",
+        "code": "6960288371"
     }, {
         "patientId": 10,
-        "subject": "5492",
-        "date": "10/13/2022",
-        "time": "1:44 PM",
-        "description": "Superficial frostbite of neck, initial encounter"
+        "date": "5/26/2022",
+        "description": "Open fracture of subtrochanteric section of neck of femur",
+        "code": "1223488934"
+    }, {
+        "patientId": 2,
+        "date": "5/23/2022",
+        "description": "Subacute myeloid leukemia, without mention of having achieved remission",
+        "code": "7553929948"
     }]
     try:
         db.session.bulk_insert_mappings(Appointment, appointments)
@@ -158,3 +149,73 @@ def generate_appointments():
     except Exception as e:
         print(e)
         return jsonify({'success': False})
+
+@utl.route('/util/generate/reports', methods=['GET'])
+def generate_reports():
+    db.session.execute("DELETE FROM report;")
+    reports = [{
+        "patientId": 3,
+        "date": "9/9/2022",
+        "description": "Spontaneous abortion, complicated by delayed or excessive hemorrhage, unspecified",
+        "code": "8536425261"
+    }, {
+        "patientId": 7,
+        "date": "2/17/2022",
+        "description": "Old bucket handle tear of medial meniscus",
+        "code": "6280159361"
+    }, {
+        "patientId": 1,
+        "date": "9/11/2022",
+        "description": "Open wound(s) (multiple) of unspecified site(s), without mention of complication",
+        "code": "4127982381"
+    }, {
+        "patientId": 4,
+        "date": "6/6/2022",
+        "description": "Obstruction by abnormal pelvic soft tissues during labor, delivered, with or without mention of antepartum condition",
+        "code": "0877142262"
+    }, {
+        "patientId": 8,
+        "date": "10/27/2022",
+        "description": "Other motor vehicle nontraffic accident while boarding and alighting injuring passenger in motor vehicle other than motorcycle",
+        "code": "4171699363"
+    }, {
+        "patientId": 2,
+        "date": "11/19/2021",
+        "description": "Acute nonparalytic poliomyelitis, poliovirus type I",
+        "code": "0148986021"
+    }, {
+        "patientId": 4,
+        "date": "4/1/2022",
+        "description": "Unspecified surgical operations and procedures causing abnormal patient reaction, or later complication, without mention of misadventure at time of operation",
+        "code": "5709499218"
+    }, {
+        "patientId": 3,
+        "date": "6/22/2022",
+        "description": "Acute myocardial infarction of anterolateral wall, subsequent episode of care",
+        "code": "6960288371"
+    }, {
+        "patientId": 10,
+        "date": "5/26/2022",
+        "description": "Open fracture of subtrochanteric section of neck of femur",
+        "code": "1223488934"
+    }, {
+        "patientId": 2,
+        "date": "5/23/2022",
+        "description": "Subacute myeloid leukemia, without mention of having achieved remission",
+        "code": "7553929948"
+    }]
+
+    try:
+        db.session.bulk_insert_mappings(Report, reports)
+        db.session.commit()
+
+        return jsonify({'success': True})
+    except Exception as e:
+        print(e)
+        return jsonify({'success': False})
+
+
+
+
+
+

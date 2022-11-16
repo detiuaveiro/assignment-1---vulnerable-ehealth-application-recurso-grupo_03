@@ -25,3 +25,10 @@ class Contact(db.Model):
     name = db.Column(db.String(100))
     email = db.Column(db.String(100))
     message = db.Column(db.String(1000))
+
+class Report(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    patientId = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date = db.Column(db.String(10))
+    description = db.Column(db.String(1000))
+    code = db.Column(db.String(100))

@@ -25,11 +25,6 @@ def create_app():
 
     with app.app_context():
         db.create_all()
-        admin = User.query.filter_by(email='admin@localhost').first()
-        if not admin:
-            admin = User(email='admin@localhost', password='admin', name='admin', isAdmin=True)
-            db.session.add(admin)
-            db.session.commit()
 
     @login_manager.user_loader
     def load_user(user_id):
