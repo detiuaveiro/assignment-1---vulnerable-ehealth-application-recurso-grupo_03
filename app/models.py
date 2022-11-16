@@ -7,6 +7,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
     isAdmin = db.Column(db.Boolean, default=False)
+    image = db.Column(db.String(20), nullable=False, default='default.png')
 
 class Appointment(db.Model):
     id = db.Column(db.Integer, primary_key=True)

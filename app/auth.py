@@ -26,7 +26,7 @@ def login_post():
 
     user = User.query.filter_by(email=email).first()
     login_user(user)
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('profile.profile'))
 
 
 @auth.route('/logout', methods=['GET'])

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_marshmallow import Marshmallow
@@ -30,6 +30,11 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
+    @app.errorhandler(404)
+    def page_not_found(e):
+        print(e)
+        return render_template('404.html')
+
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
@@ -47,5 +52,8 @@ def create_app():
 
     from .utils import utl as utils_blueprint
     app.register_blueprint(utils_blueprint)
+
+    from .profile import prof as profile_blueprint
+    app.register_blueprint(profile_blueprint)
 
     return app

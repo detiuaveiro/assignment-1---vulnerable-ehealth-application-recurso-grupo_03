@@ -1,70 +1,32 @@
 {% extends "base.html" %}
 
-{%  block styles %}
-    <link rel="stylesheet" href="{{ url_for('static',filename='/css/profile.css')}}">
-{% endblock %}
-
-{% block container  %}
-
-<body>
+{% block container %}
+    <body>
+    {%  include "navbar.html" %}
     <div class="container">
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">PATIENT NAME</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="appointment.html">Book Appointment</a></li>
-                        <li><a href="#search">Download Test Results</a></li>
-                        <li><a href="#">Logout</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Date</th>
-                            <th scope="col"></th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-md-10">
+                <h1>Profile</h1>
             </div>
-        </nav>
-    </div>
-    <div id="search">
-        <button type="button" class="close">×</button>
-        <form>
-            <input type="search" value="" placeholder="Insert Test Code" />
-            <button type="submit" class="btn btn-primary" method="GET">Download</button>
-        </form>
+            <div class="col-md-2 d-flex flex-row gap-2">
+                <a href="/changepassword" class="btn btn-danger">Change Password</a>
+                <a href="/changeimage" class="btn btn-danger">Change Image</a>
+            </div>
+
+            <div class="col-12">
+                <span class="fw-bold">Name:</span>
+                <span>{{ user.name }}</span>
+            </div>
+            <div class="col-12">
+                <span class="fw-bold">Email:</span>
+                <span>{{ user.email }}</span>
+            </div>
+
+            <div class="col-12">
+                <span class="fw-bold">Image: </span>
+                <img src="/static/pictures/{{ user.image }}" alt="profile image" width="100px" height="100px">
+            </div>
+        </div>
     </div>
 </body>
 {% endblock %}

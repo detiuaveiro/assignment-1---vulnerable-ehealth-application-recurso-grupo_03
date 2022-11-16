@@ -1,9 +1,22 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 from .models import User
 from . import db
 
 prof = Blueprint('profile', __name__)
+
+
+@prof.route('/profile')
+@login_required
+def profile():
+	user = User.query.filter_by(id=current_user.id).first()
+	print(user)
+	return render_template('profile.html', user=user)
+
+
+
+
+
 
 #@prof.route('/change_password', methods=['POST'])
 @prof.route('/change_password/<user>', methods=['POST'])
