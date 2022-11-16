@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, flash,redirect, url_for, request
+import json
+
+from flask import Blueprint, render_template, flash,redirect, url_for, request, jsonify,Response
 from flask_login import login_required, current_user
-from .models import Appointment
-from . import db
-from datetime import datetime
+from .models import Appointment, AppointmentSchema
+from . import db, ma
+
 apt = Blueprint("apt", __name__)
 
 
@@ -35,8 +37,27 @@ def appointment_post():
 @login_required
 def appointments():
     if current_user.isAdmin:
-        appointments = Appointment.query.all()
+        appointments = Appointment.query.order_by(Appointment.date.desc()).limit(5).all()
         return render_template("appointments.html", appointments=appointments)
     else:
         appointments = Appointment.query.filter_by(patientId=current_user.id).all()
         return render_template("appointments.html", appointments=appointments)
+
+
+class AlchemyEncoder:
+    pass
+
+
+@apt.route("/api/appointments/", methods=["GET"])
+@login_required
+def api_appointments():
+    page = request.args.get("page", 1, type=int)
+    if current_user.isAdmin:
+        appointments = Appointment.query.order_by(Appointment.date.desc()).limit(5).all()
+        appointments_schema = AppointmentSchema(many=True)
+        output = appointments_schema.dump(appointments)
+        return jsonify(output)
+    else:
+        appointments = Appointment.query.filter_by(patientId=current_user.id).paginate(page=page, per_page=5)
+        appointments_schema = AppointmentSchema(many=True)
+        output = appointments_schema.dump(appointments)

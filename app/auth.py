@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from .models import User
-import sqlite3
+from . import db
 
 auth = Blueprint('auth', __name__)
 
@@ -17,15 +17,12 @@ def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    db = sqlite3.connect('instance/db.sqlite')
-    result = db.execute("SELECT * FROM user WHERE email = '"+email+"' AND password = '"+password+"';").fetchall()
+
+    result = db.session.execute("SELECT * FROM user WHERE email = '"+email+"' AND password = '"+password+"';").fetchall()
 
     if not result:
         flash('Please check your login details and try again.')
-        db.close()
         return redirect(url_for('auth.login'))
-
-    db.close()
 
     user = User.query.filter_by(email=email).first()
     login_user(user)

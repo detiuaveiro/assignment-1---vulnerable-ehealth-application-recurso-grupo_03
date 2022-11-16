@@ -15,17 +15,16 @@ def contact():
 def contact_post():
     name = request.form.get('name')
     email = request.form.get('email')
-    phone = request.form.get('phone')
     message = request.form.get('message')
 
-    new_contact = Contact(name=name, email=email, phone=phone, message=message)
     try:
-        db.session.add(new_contact)
+        db.session.execute("INSERT INTO contact (name, email, message) VALUES ('"+name+"', '"+email+"', '"+message+"');")
         db.session.commit()
         flash('Your message has been sent. Thank you!')
         return redirect(url_for('main.index'))
-    except:
+    except Exception as e:
         flash('There was an issue sending your message. Please try again.')
+        print(e)
         return redirect(url_for('main.index'))
 
 
@@ -33,7 +32,9 @@ def contact_post():
 @login_required
 def contacts():
     if current_user.isAdmin:
-        contacts = Contact.query.all()
+        contacts = db.session.execute("SELECT * FROM contact;").fetchall()
+
+        print(contacts)
         return render_template('contacts.html', contacts=contacts)
     else:
         flash('You do not have permission to view this page.')

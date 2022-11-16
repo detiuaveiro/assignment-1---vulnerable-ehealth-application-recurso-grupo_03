@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, flash,redirect, url_for, request
-from flask_login import login_required, current_user
-from flask import render_template,make_response
 import pdfkit
+from flask import Blueprint, request, render_template, make_response
+from flask_login import login_required
 
 tst = Blueprint("tst", __name__)
 

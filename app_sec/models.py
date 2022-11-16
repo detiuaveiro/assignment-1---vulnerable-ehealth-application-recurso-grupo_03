@@ -6,33 +6,19 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
+    isAdmin = db.Column(db.Boolean, default=False)
 
 class Appointment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    doctorId = db.Column(db.Integer, db.ForeignKey('user.id'))
     patientId = db.Column(db.Integer, db.ForeignKey('user.id'))
-    date = db.Column(db.Date())
+    subject = db.Column(db.String(100))
+    date = db.Column(db.String(10))
+    time = db.Column(db.String(10))
     description = db.Column(db.String(1000))
 
-class Doctor(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    specialization = db.Column(db.String(100))
-    description = db.Column(db.Integer)
-    userId = db.Column(db.Integer, db.ForeignKey('user.id'))
-    salary = db.Column(db.Integer)
-
-class Drug(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    code = db.Column(db.String(100))
-    company = db.Column(db.String(100))
-
-class Specialization(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String(1000))
 
 class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     email = db.Column(db.String(100))
-    phone = db.Column(db.String(100))
     message = db.Column(db.String(1000))

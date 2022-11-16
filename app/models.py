@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from . import db
+from . import db, ma
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -16,10 +16,12 @@ class Appointment(db.Model):
     time = db.Column(db.String(10))
     description = db.Column(db.String(1000))
 
+class AppointmentSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'patientId', 'subject', 'date', 'time', 'description')
 
 class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     email = db.Column(db.String(100))
-    phone = db.Column(db.String(100))
     message = db.Column(db.String(1000))
