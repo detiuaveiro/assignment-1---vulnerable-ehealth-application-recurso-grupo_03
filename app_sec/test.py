@@ -25,6 +25,7 @@ def tests():
     return render_template("tests.html")
 
 @tst.route("/test", methods=["GET"])
+@login_required
 def generate_link():
     code = request.form.get("code")
     report = Report.query.filter_by(code=code).first()
