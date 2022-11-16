@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from app import db
-from .models import User, Appointment, Report
+from app.models import User, Appointment, Report
 
 utl = Blueprint('util', __name__)
 

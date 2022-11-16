@@ -11,15 +11,19 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#page-top"><img
-                    src="{{ url_for('static',filename='assets/img/logo-solo.png') }}"/></a>
+                    src="{{ url_for('static',filename='assets/img/logo-solo.png') }}" alt="logo"/></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars ms-1"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item textcolour"><a class="nav-link" style="border-radius:10%; background-color: rgba(11, 172, 204,0.8); font-size: large;" href="">Login</a></li>
-                    <li class="nav-item textcolour"><a class="nav-link" style="border-radius:10%; background-color:rgba(11, 172, 204,0.8); font-size: large;" href="">Contact</a></li>
+                    <li class="nav-item textcolour"><a class="nav-link"
+                                                       style="border-radius:10%; background-color: rgba(11, 172, 204,0.8); font-size: large;"
+                                                       href="/login">Login</a></li>
+                    <li class="nav-item textcolour"><a class="nav-link"
+                                                       style="border-radius:10%; background-color:rgba(11, 172, 204,0.8); font-size: large;"
+                                                       href="/contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -28,9 +32,10 @@
     <header class="masthead">
         <div class="container">
             <div class="masthead-heading"><img style="max-width: 80%;"
-                                               src="{{ url_for('static',filename='assets/img/logo-no-background.png') }}">
+                                               src="{{ url_for('static',filename='assets/img/logo-no-background.png') }}" alt="background">
             </div>
-            <a class="btn btn-primary btn-xl text-uppercase grow" href="#portfolio" style="background-color: #0baccc !important;"    >Learn More</a>
+            <a class="btn btn-primary btn-xl text-uppercase grow" href="#portfolio"
+               style="background-color: #0baccc !important;">Learn More</a>
         </div>
     </header>
     <!-- Portfolio Grid-->
@@ -69,7 +74,9 @@
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">Gynaecology</div>
-                            <div class="portfolio-caption-subheading text-muted">Taking care of your reproductive system</div>
+                            <div class="portfolio-caption-subheading text-muted">Taking care of your reproductive
+                                system
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -85,7 +92,8 @@
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">Urology</div>
-                            <div class="portfolio-caption-subheading text-muted">Taking care of your urinary system</div>
+                            <div class="portfolio-caption-subheading text-muted">Taking care of your urinary system
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -185,9 +193,9 @@
             </div>
         </div>
     </section>
-<!-- Footer-->
-<footer class="footer py-4">
-    <div class="container">
+    <!-- Footer-->
+    <footer class="footer py-4">
+        <div class="container">
             <div class="col-lg-4 text-lg-end">
 
             </div>

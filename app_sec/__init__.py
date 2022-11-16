@@ -1,9 +1,12 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_marshmallow import Marshmallow
+from flask_wtf.csrf import CSRFProtect
 
 db = SQLAlchemy()
-
+ma = Marshmallow()
+csrf = CSRFProtect()
 
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='static', static_url_path='/static')
@@ -11,6 +14,8 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
     db.init_app(app)
+    ma = Marshmallow(app)
+    csrf.init_app(app)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -20,15 +25,15 @@ def create_app():
 
     with app.app_context():
         db.create_all()
-        admin = User.query.filter_by(email='admin@localhost').first()
-        if not admin:
-            admin = User(email='admin@localhost', password='admin', name='admin', isAdmin=True)
-            db.session.add(admin)
-            db.session.commit()
 
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        print(e)
+        return render_template('404.html')
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
@@ -42,7 +47,13 @@ def create_app():
     from .appointment import apt as appointment_blueprint
     app.register_blueprint(appointment_blueprint)
 
-    from .test import tst as test_blueprint
-    app.register_blueprint(test_blueprint)
+    from .report import rpt as rpt_blueprint
+    app.register_blueprint(rpt_blueprint)
+
+    from .utils import utl as utils_blueprint
+    app.register_blueprint(utils_blueprint)
+
+    from .profile import prof as profile_blueprint
+    app.register_blueprint(profile_blueprint)
 
     return app

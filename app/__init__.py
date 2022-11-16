@@ -2,11 +2,9 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_marshmallow import Marshmallow
-# from flask_wtf.csrf import CSRFProtect
 
 db = SQLAlchemy()
 ma = Marshmallow()
-# csrf = CSRFProtect()
 
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='static', static_url_path='/static')
@@ -15,14 +13,13 @@ def create_app():
 
     db.init_app(app)
     ma = Marshmallow(app)
-    # csrf.init_app(app)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
-    from .models import User
 
+    from .models import User
     with app.app_context():
         db.create_all()
 
