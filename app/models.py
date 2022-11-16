@@ -6,6 +6,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
+    morada = db.Column(db.String(200))
+    contact = db.Column(db.String(13))
+    SSN = db.Column(db.String(12))
     isAdmin = db.Column(db.Boolean, default=False)
     image = db.Column(db.String(20), nullable=False, default='default.png')
 
