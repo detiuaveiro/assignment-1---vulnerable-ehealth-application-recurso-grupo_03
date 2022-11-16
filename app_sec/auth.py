@@ -17,7 +17,7 @@ def login_post():
     password = request.form.get('password')
 
     user = User.query.filter_by(email=email).first()
-
+    print(user)
     if not user or user.password != password:
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login'))
