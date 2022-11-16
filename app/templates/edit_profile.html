@@ -15,10 +15,7 @@
     </div>
     <!--edit form-->
     <div class="row">
-        <div class="inputBox" style="z-index: 10; margin-top: 0;">
-            <img class="user" src="{{ url_for('static',filename='assets/img/login-icon.png') }}" height="100px"
-                width="100px">
-            <h3>Edit Profile</h3>
+        <div class="inputBox" style="z-index: 10; margin-bottom: 0%;">
             <div class="loginBox" style="z-index: -10; margin-top: 15%;">
                 <form action="/edit_profile/{{user.id}}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
