@@ -53,4 +53,7 @@ def create_app():
     from .profile import prof as profile_blueprint
     app.register_blueprint(profile_blueprint)
 
+    from .test import tst as test_blueprint
+    app.register_blueprint(test_blueprint)
+
     return app

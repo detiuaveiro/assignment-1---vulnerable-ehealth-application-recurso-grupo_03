@@ -18,4 +18,9 @@ def test():
     response.headers["Content-Disposition"] = "inline; filename=output.pdf"
     return response
 
+@tst.route("/tests", methods=["GET"])
+def tests():
+    return render_template("tests.html")
+
+
 
