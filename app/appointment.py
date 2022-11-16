@@ -1,9 +1,7 @@
-import json
-
-from flask import Blueprint, render_template, flash,redirect, url_for, request, jsonify,Response
+from flask import Blueprint, render_template, flash,redirect, url_for, request, jsonify
 from flask_login import login_required, current_user
 from .models import Appointment, AppointmentSchema
-from . import db, ma
+from . import db
 
 apt = Blueprint("apt", __name__)
 
@@ -48,16 +46,23 @@ class AlchemyEncoder:
     pass
 
 
-@apt.route("/api/appointments/", methods=["GET"])
+@apt.route("/api/appointments", methods=["GET"])
 @login_required
 def api_appointments():
     page = request.args.get("page", 1, type=int)
     if current_user.isAdmin:
-        appointments = Appointment.query.order_by(Appointment.date.desc()).limit(5).all()
+        appointments = Appointment.query.order_by(Appointment.date.desc()).paginate(page=page, per_page=5,error_out=False )
         appointments_schema = AppointmentSchema(many=True)
         output = appointments_schema.dump(appointments)
-        return jsonify(output)
+        if output:
+            return jsonify(output)
+        else:
+            return jsonify([])
     else:
-        appointments = Appointment.query.filter_by(patientId=current_user.id).paginate(page=page, per_page=5)
+        appointments = Appointment.query.filter_by(patientId=current_user.id).paginate(page=page, per_page=5, error_out=False )
         appointments_schema = AppointmentSchema(many=True)
         output = appointments_schema.dump(appointments)
+        if output:
+            return jsonify(output)
+        else:
+            return jsonify([])

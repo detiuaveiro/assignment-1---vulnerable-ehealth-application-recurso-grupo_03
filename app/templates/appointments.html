@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Contacts</h1>
+                <h1>Appointments</h1>
                 <hr>
                 <table class="table">
                     <thead>
@@ -27,8 +27,63 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                <button id="loadbutton" class="btn btn-primary btn-block">Load More</button>
             </div>
         </div>
     </div>
     </body>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        let page = 1;
+        $("#loadbutton").click(function () {
+            page++;
+            $.ajax({
+                url: "/api/appointments?page=" + page,
+                type: "GET",
+                success: function (data) {
+                    const appointments = data;
+                    let html = "";
+                    for (let i = 0; i < appointments.length; i++) {
+                        html += "<tr>";
+                        html += "<td>" + appointments[i].subject + "</td>";
+                        html += "<td>" + appointments[i].description + "</td>";
+                        html += "<td>" + appointments[i].date + "</td>";
+                        html += "<td>" + appointments[i].time + "</td>";
+                        html += "</tr>";
+                    }
+                    $("tbody").append(html);
+                }
+            });
+        });
+    });
+</script>
+
+{#SEGURA#}
+{#<script type="text/javascript">#}
+{#    $(document).ready(function () {#}
+{#        var page = 1;#}
+{#        $("#loadbutton").click(function () {#}
+{#            page++;#}
+{#            $.ajax({#}
+{#                url: "/api/appointments?page=" + page,#}
+{#                type: "GET",#}
+{#                success: function (data) {#}
+{#                    var appointments = data;#}
+{#                    var selector = $("tbody");#}
+{#                    for (var i = 0; i < appointments.length; i++) {#}
+{#                        selector.append("<tr>");#}
+{#                        selector.append($("<td></td>").text(appointments[i].subject));#}
+{#                        selector.append($("<td></td>").text(appointments[i].description));#}
+{#                        selector.append($("<td></td>").text(appointments[i].date));#}
+{#                        selector.append($("<td></td>").text(appointments[i].time));#}
+{#                        selector.append("</tr>");#}
+{#                    }#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    });#}
+{#</script>#}
 {% endblock %}

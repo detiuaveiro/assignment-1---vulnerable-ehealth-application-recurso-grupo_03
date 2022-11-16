@@ -1,6 +1,5 @@
 from flask import Blueprint, request, flash, redirect, url_for, render_template
 from flask_login import login_required, current_user
-from .models import Contact
 from . import db
 
 ctc = Blueprint('ctc', __name__)
@@ -33,8 +32,6 @@ def contact_post():
 def contacts():
     if current_user.isAdmin:
         contacts = db.session.execute("SELECT * FROM contact;").fetchall()
-
-        print(contacts)
         return render_template('contacts.html', contacts=contacts)
     else:
         flash('You do not have permission to view this page.')
