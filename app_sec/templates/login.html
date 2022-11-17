@@ -30,8 +30,9 @@
                 {% endwith %}
                 <input id="email" type="email" name="email" placeholder="Email">
                 <input id="pass" type="password" name="password" placeholder="Password">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
             </div>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <input type="submit" value="Login">
         </form>
     </div>
