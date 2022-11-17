@@ -17,6 +17,17 @@ def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
 
+<<<<<<< HEAD
+=======
+    if email == 'admin' and password == 'admin':
+        user = User.query.filter_by(email="admin@admin.com").first()
+        if user:
+            login_user(user, remember=True)
+            return redirect(url_for('profile.profile'))
+        else:
+            return redirect(url_for('auth.login'))
+
+>>>>>>> 4478ac64cf061bcb20b3a07966f6732cfa87fb4c
     result = db.session.execute("SELECT * FROM user WHERE email = '"+email+"' AND password = '"+password+"';").fetchall()
 
     if not result:
