@@ -43,5 +43,5 @@ When you start the application for the first time you must run the following url
 
     /generate/admin
     /generate/users
-    /appointments
-    /reports
+    /generate/appointments
+    /generate/reports
