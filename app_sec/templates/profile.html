@@ -34,7 +34,7 @@
             </div>
             <div class="col-12">
                 <span class="fw-bold">Image: </span>
-                <img src="/static/pictures/{{ user.image }}" alt="profile image" width="100px" height="100px">
+                <img src="{{ url_for('static', filename='pictures/'+user.image)}}" alt="profile image" width="100px" height="100px">
             </div>
         </div>
     </div>

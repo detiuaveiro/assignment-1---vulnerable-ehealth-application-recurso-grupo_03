@@ -1,7 +1,7 @@
 from flask import Blueprint, request, flash, redirect, url_for, render_template
 from flask_login import login_required, current_user
-from .models import Contact
-from . import db
+from app_sec.models import Contact
+from app_sec import db
 
 ctc = Blueprint('ctc', __name__)
 

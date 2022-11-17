@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from flask import render_template,make_response
 import pdfkit
 
-from app.models import User, Report
+from app_sec.models import User, Report
 
 tst = Blueprint("tst", __name__)
 

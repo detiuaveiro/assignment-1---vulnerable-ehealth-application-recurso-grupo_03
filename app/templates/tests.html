@@ -24,6 +24,9 @@
                 data: {
                     code: $("#code").val()
                 },
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token() }}"
+                },
                 success: function(data) {
                     console.log(data);
                     $("#message-link").html(data);

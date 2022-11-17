@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash,redirect, url_for, request,jsonify
 from flask_login import login_required, current_user
-from .models import Appointment, AppointmentSchema
-from . import db
+from app_sec.models import Appointment, AppointmentSchema
+from app_sec import db
 apt = Blueprint("apt", __name__)
 
 
