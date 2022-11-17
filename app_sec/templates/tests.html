@@ -17,21 +17,16 @@
 {% block scripts %}
 <script>
     $(document).ready(function() {
-        var csrf_token = "{{ csrf_token() }}";
-
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
-                }
-            }
-        });
-
-
         $("#search").click(function() {
             $.ajax({
-                url: "/test?code="+$("#code").val(),
-                type: "GET",
+                url: "/test",
+                type: "POST",
+                data: {
+                    code: $("#code").val()
+                },
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token() }}"
+                },
                 success: function(data) {
                     console.log(data);
                     $("#message-link").html(data);

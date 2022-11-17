@@ -1,11 +1,11 @@
 from flask import Blueprint, jsonify
-from app import db
-from app.models import User, Appointment, Report
+from app_sec import db
+from app_sec.models import User, Appointment, Report
 
 utl = Blueprint('util', __name__)
 
 
-@utl.route('/util/generate/users', methods=['GET'])
+@utl.route('/generate/users', methods=['GET'])
 def generate_users():
     db.session.execute("DELETE FROM user WHERE isAdmin = false;")
     db.session.commit()
@@ -199,7 +199,7 @@ def generate_users():
         return jsonify({'success': False})
 
 
-@utl.route('/util/generate/admin', methods=['GET'])
+@utl.route('/generate/admin', methods=['GET'])
 def generate_admin():
     db.session.execute("DELETE FROM user WHERE isAdmin = True;")
     db.session.commit()
@@ -214,7 +214,7 @@ def generate_admin():
         return jsonify({'success': False})
 
 
-@utl.route('/util/generate/appointments', methods=['GET'])
+@utl.route('/generate/appointments', methods=['GET'])
 def generate_appointments():
     users = User.query.all()
     if len(users) < 10:
@@ -300,7 +300,7 @@ def generate_appointments():
         print(e)
         return jsonify({'success': False})
 
-@utl.route('/util/generate/reports', methods=['GET'])
+@utl.route('/generate/reports', methods=['GET'])
 def generate_reports():
     db.session.execute("DELETE FROM report;")
     reports = [{

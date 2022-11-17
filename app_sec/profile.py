@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, Flask
 from flask_login import login_required, current_user
-from .models import User
-from . import db
+from app_sec.models import User
+from app_sec import db
 import os
 
 prof = Blueprint('profile', __name__)
