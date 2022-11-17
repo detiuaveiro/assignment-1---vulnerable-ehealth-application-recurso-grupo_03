@@ -63,29 +63,4 @@
     });
 </script>
 
-{#SEGURA#}
-{#<script type="text/javascript">#}
-{#    $(document).ready(function () {#}
-{#        var page = 1;#}
-{#        $("#loadbutton").click(function () {#}
-{#            page++;#}
-{#            $.ajax({#}
-{#                url: "/api/appointments?page=" + page,#}
-{#                type: "GET",#}
-{#                success: function (data) {#}
-{#                    var appointments = data;#}
-{#                    var selector = $("tbody");#}
-{#                    for (var i = 0; i < appointments.length; i++) {#}
-{#                        selector.append("<tr>");#}
-{#                        selector.append($("<td></td>").text(appointments[i].subject));#}
-{#                        selector.append($("<td></td>").text(appointments[i].description));#}
-{#                        selector.append($("<td></td>").text(appointments[i].date));#}
-{#                        selector.append($("<td></td>").text(appointments[i].time));#}
-{#                        selector.append("</tr>");#}
-{#                    }#}
-{#                }#}
-{#            });#}
-{#        });#}
-{#    });#}
-{#</script>#}
 {% endblock %}
