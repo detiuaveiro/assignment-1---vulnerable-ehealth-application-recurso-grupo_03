@@ -10,8 +10,6 @@ prof = Blueprint('profile', __name__)
 @login_required
 def profile():
 	user = User.query.filter_by(id=current_user.id).first()
-	user.image = safe_join(user.image)
-	print(user.image)
 	return render_template('profile.html', user=user)
 
 @prof.route('/edit_profile/')
