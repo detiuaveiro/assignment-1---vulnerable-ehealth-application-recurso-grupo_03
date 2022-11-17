@@ -1,38 +1,47 @@
-# eHaltth Corp 
+# eHealth Corp 
 
 ## Description
 
 ## Authors
 
-- Vicente Barros (NMec: 97787)
-- Daniel Ferreira (NMec: 102442)
-- Guilherme Antunes (NMec:103600)
-- Mariana Andrade (NMec: 103823)
+- Vicente Barros **97787**
+- Daniel Ferreira **102442**
+- Guilherme Antunes **103600**
+- Mariana Andrade **103823**
 
 ## Vulnerability 
  
- - **Sql Injection**
- - 
-
+ - **CWE - 89** - Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+ - **CWE - 79** - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+ - **CWE - 352** - Cross-Site Request Forgery (CSRF)
+ - **CWE - 488** - Exposure of Data Element to Wrong Session
+ - **CWE - 798** - Use of Hard-coded Credentials
+ - **CWE - 620** - Unverified Password Change
+ - **CWE - 521** - Weak Password Requirements
+ - **CWE - 522** - Insufficiently Protected Credentials
+ - **CWE - 434** - Unrestricted Upload of File with Dangerous Type
 
 ## Execute
-To execute locally you need to have Docker Compose installed and updated.
 
-After making sure of it, follow the steps below:
-1. In the root folder of the app or app_sec, run the following command:
-```
-    $ docker-compose up
-```
+### Docker
 
-2. Open your browser and go to the following address:
+To run in docker you need just have to run the following command inside the version you want to run and execute
+```bash
+docker-compose up
 ```
-    http://localhost:5000
-```
+The insecure version will be running on port 8000 and the secure version will be running on port 8080 you may cahnfe the port in the docker-compose.yml file
+### Local
+To run locally you must use the **run.sh** with the params -a and -p to specify the version and port you want to run the application.
 
-3. In browser, you nead to generate a database with the following command:
+Example:
+```bash
+./run.sh -a app -p 8080
+
 ```
-    http://localhost:5000/generate/admin
-    http://localhost:5000/generate/users
-    http://localhost:5000/generate/appointments
-    http://localhost:5000/generate/reports
-```
+**IMPORTANT**
+When you start the application for the first time you must run the following urls to populate the database
+
+    /generate/admin
+    /generate/users
+    /appointments
+    /reports
