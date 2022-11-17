@@ -19,12 +19,20 @@
 To execute locally you need to have Docker Compose installed and updated.
 
 After making sure of it, follow the steps below:
-
-1. build the containers with the command: 
-``` bash
-    $ docker-compose build
+1. In the root folder of the app or app_sec, run the following command:
 ```
-2. run the containers with the command: docker-compose up -d
-``` bash
-    $ docker-compose up -d
+    $ docker-compose up
+```
+
+2. Open your browser and go to the following address:
+```
+    http://localhost:5000
+```
+
+3. In browser, you nead to generate a database with the following command:
+```
+    http://localhost:5000/generate/admin
+    http://localhost:5000/generate/users
+    http://localhost:5000/generate/appointments
+    http://localhost:5000/generate/reports
 ```
