@@ -7,7 +7,7 @@ utl = Blueprint('util', __name__)
 
 @utl.route('/generate/users', methods=['GET'])
 def generate_users():
-    db.session.execute("DELETE FROM user WHERE isAdmin = false IF ;")
+    db.session.execute("DELETE FROM user WHERE isAdmin = false;")
     db.session.commit()
     users = [{
         "name": "Glory Powley",

@@ -32,5 +32,42 @@ def generate_link():
         return "No report found"
     else:
         return "Your link has been generated. Click <a href='/test/"+str(report.patientId)+"/'>here</a> to view your report."
+{% extends "base.html" %}
 
+{% block container %}
+<body>
+{%  include "navbar.html" %}
+<div class="container">
+    <div class="row">
+        <h1>Tests</h1>
+        <input id="code" type="search" name="code" class="form-control"/>
+        <button id="search" type="submit" class="btn btn-primary mt-2">Search</button>
+        <div id="message-link" class="mx-auto pt-2"></div>
+    </div>
+</div>
+</body>
+{% endblock %}
 
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $("#search").click(function() {
+            $.ajax({
+                url: "/test",
+                type: "POST",
+                data: {
+                    code: $("#code").val()
+                },
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token() }}"
+                },
+                success: function(data) {
+                    console.log(data);
+                    $("#message-link").html(data);
+
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
