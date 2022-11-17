@@ -9,15 +9,14 @@
 <body
     style="background-image: url({{ url_for('static',filename='assets/img/header-bg.jpg')}}); background-position: center;">
     <!-- logo on upper right corner-->
-    <div style=" position:absolute fixed top; padding-left: 5rem; padding-top: 3rem;" class="logo">
+    <div style=" position:absolute fixed top; padding-left: 5rem; padding-top: 3rem; z-index: -10;" class="logo">
         <a href="/"><img style="max-width: 5%;  height: auto;"
                 src="{{ url_for('static',filename='assets/img/logo-solo.png') }}" alt="logo"></a>
     </div>
     <!--edit form-->
     <div class="row">
-        <div class="inputBox" style="z-index: 10;">
-            <img class="user" src="{{ url_for('static',filename='assets/img/login-icon.png') }}" height="100px"
-                width="100px">
+        <div class="inputBox" style="z-index: 10; margin-bottom: 0%;">      
+            <div class="loginBox" style="z-index: -10; margin-top: 15%;">
                 <form action="/edit_profile" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <!--Show Flashed Messages-->
@@ -31,7 +30,7 @@
                         {% endif %}
                         {% endwith %}
                         <div class="form-group pt-4">
-                            <input id="email" value="{{user.email}}" type="email" name="email" placeholder="Email">
+                            <input id="email" value="{{user.email}}" type="text" name="email" placeholder="Email">
                         </div>
                         <div class="form-group pt-4">
                             <input id="address" value="{{user.morada}}" type="text" name="address"
@@ -45,7 +44,7 @@
                             <input id="image" type="file" name="image">
                         </div>
                         <div class="form-group pt-4">
-                            <input id="pass" type="password" name="password" placeholder="Password">
+                            <input id="password" type="password" name="password" placeholder="Password">
                             <input id="pass" type="password" name="new_password" placeholder="New Password">
                             <input id="pass" type="password" name="confirm_new_password"
                                 placeholder="Confirm New Password">

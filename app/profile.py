@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from .models import User
 from . import db
 import os
+from werkzeug.security import generate_password_hash
 
 
 prof = Blueprint('profile', __name__)
@@ -32,7 +33,7 @@ def edit_profile(id):
 	user = User.query.filter_by(id=id).first()
 	if new_password:
 		if new_password == confirm_new_password:
-			user.password = new_password
+			user.password = generate_password_hash(new_password)
 		else:
 			flash('Passwords do not match.')
 			return redirect(url_for('profile.edit_profile'))
