@@ -186,7 +186,7 @@ def generate_users():
         "password": "ljouXG0q5Y",
         "morada": "1 Northridge Drive",
         "isAdim": False,
-        "image": "u.png",
+        "image": "a.png",
         "contact": "967267984",
         "SSN": "778-48-5530"
     }]
