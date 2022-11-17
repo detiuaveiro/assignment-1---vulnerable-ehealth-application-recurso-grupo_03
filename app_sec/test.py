@@ -29,5 +29,7 @@ def generate_link():
     report = Report.query.filter_by(code=code).first()
     if report is None:
         return "No report found"
+    elif report.patientId != current_user.id:
+        return "You are not the owner of this report"
     else:
         return "Your link has been generated. Click <a href='/test/"+str(report.patientId)+"/'>here</a> to view your report."
