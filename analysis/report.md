@@ -54,6 +54,8 @@ ____
 
 ### CWE - 89 - Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
 
+### CVSS Severity: 8.7
+
 #### Abstract
 
 An example of SQL injection is when an attacker inserts Structured Query Language (SQL) code into a Web form input box to access resources or modify data.
@@ -86,7 +88,7 @@ Originally, the password is received and processed directly like so:
 result = db.session.execute("SELECT * FROM user WHERE email = '"+email+"' AND password = '"+password+"';").fetchall()
 ```
 
-To correct this, the **werkzeug** library was employed to process the password through hashing. Furthermore, SQL Alchemy was used to make sure that the password matches that which is associated with the user. In pratical terms, this translates into a guard clause like the following:
+To correct this, the **werkzeug** library was employed to process the password through hashing. Furthermore, **SQL Alchemy** was used to make sure that the password matches that which is associated with the user. In pratical terms, this translates into a guard clause like the following:
 
 ```python
 user = User.query.filter_by(email=email).first()
@@ -97,7 +99,11 @@ if not user or not check_password_hash(user.password, password):
 
 This results in the prevention of any type of SQL injection in this input field, as seen below:
 
+![](https://cdn.discordapp.com/attachments/852109272262770710/1042673579071909909/safeinjection.gif)
+
 ### CWE - 79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+
+### CVSS Severity: 5.7
 
 #### Abstract
 
@@ -123,9 +129,73 @@ Weakness repercussions include the exposure or theft of information saved in the
 
 #### Exploitation
 
+In the context of this project, and attacker can enter a script in the message field of the Appointments form and have said script execute on click of the "Show More" button on the Appointments listing page:
+![](https://cdn.discordapp.com/attachments/852109272262770710/1042693306813001748/unsafe.gif)
+
 #### Counteraction
 
+This is avoided by escaping the script execution when the AJAX call is handled, transforming the input in a literal string.
+
+Below the original and safe methods respectively:
+
+```js
+    $(document).ready(function () {
+        let page = 1;
+        $("#loadbutton").click(function () {
+            page++;
+            $.ajax({
+                url: "/api/appointments?page=" + page,
+                type: "GET",
+                success: function (data) {
+                    const appointments = data;
+                    let html = "";
+                    for (let i = 0; i < appointments.length; i++) {
+                        html += "<tr>";
+                        html += "<td>" + appointments[i].subject + "</td>";
+                        html += "<td>" + appointments[i].description + "</td>";
+                        html += "<td>" + appointments[i].date + "</td>";
+                        html += "<td>" + appointments[i].time + "</td>";
+                        html += "</tr>";
+                    }
+                    $("tbody").append(html);
+                }
+            });
+        });
+    });
+```
+
+```js
+    $(document).ready(function () {#}
+        var page = 1;#}
+        $("#loadbutton").click(function () {#}
+            page++;#}
+            $.ajax({#}
+                url: "/api/appointments?page=" + page,#}
+                type: "GET",#}
+                success: function (data) {#}
+                    var appointments = data;#}
+                    var selector = $("tbody");#}
+                    for (var i = 0; i < appointments.length; i++) {#}
+                        selector.append("<tr>");#}
+                        selector.append($("<td></td>").text(appointments[i].subject));#}
+                        selector.append($("<td></td>").text(appointments[i].description));#}
+                        selector.append($("<td></td>").text(appointments[i].date));#}
+                        selector.append($("<td></td>").text(appointments[i].time));#}
+                        selector.append("</tr>");#}
+                    }#}
+                }#}
+            });#}
+        });#}
+   });
+```
+
+The result is as follows, the script is input into the appointments table as literal text, as expected:
+
+![](https://cdn.discordapp.com/attachments/852109272262770710/1042693348546334790/safexss.gif)
+
 ### CWE - 352 - Cross-Site Request Forgery
+
+### CVSS Severity: 7.2
 
 #### Abstract
 
@@ -134,13 +204,26 @@ This can be accomplished by a URL, image load, XMLHttpRequest, or other means, a
 
 #### Exploitation
 
-By producing a POST request externally from the application, one can easliy inject fake contacts, like so:
+By producing a POST request externally from the application, one can easliy inject fake contacts, since this is not a page where login is required, like so:
+
+![](https://cdn.discordapp.com/attachments/852109272262770710/1042689760868704306/image.png)
+![](https://cdn.discordapp.com/attachments/852109272262770710/1042689842322079865/image.png)
 
 #### Counteraction
 
-By using the **flask-wtf** library, it's possible to stop unintended POSTs from successfully submitting, by associating an authentication token to these requests, as such:
+By using the **flask-wtf** library, it's possible to stop unintended POSTs from successfully submitting, by associating an authentication token to these requests through the use of an input tag in HTML like so:
+
+```html
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+```
+
+This causes the system to reject the request as such:
+
+![](https://media.discordapp.net/attachments/852109272262770710/1042687422137368626/image.png?width=1055&height=623)
 
 ### CWE - 488 - Exposure of Data Element to Wrong Session
+
+### CVSS Severity: 4.2
 
 #### Abstract
 
@@ -148,9 +231,81 @@ The solution fails to adequately enforce the boundaries between the states of di
 
 #### Exploitation
 
+By inserting a code for a test result that isn't theirs, a user can access and download another user's PDF test results, as such:
+![](https://cdn.discordapp.com/attachments/852109272262770710/1042685208069152838/vilacabecudo.gif)
+
 #### Counteraction
 
+In the unsafe version of the app, the renderization is done as such:
+
+```python
+@tst.route("/test/", methods=["POST"])
+def generate_link():
+    code = request.form.get("code")
+    report = Report.query.filter_by(code=code).first()
+    if report is None:
+        return "No report found"
+    else:
+        return "Your link has been generated. Click <a href='/test/"+str(report.patientId)+"/'>here</a> to view your report."
+```
+
+```html
+{% extends "base.html" %}
+
+{% block container %}
+    <h1>Exam Result</h1>
+    <p>{{ user.name }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.SSN }}</p>
+    <p>{{ user.morada }}</p>
+    <p>{{ user.contact }}</p>
+    <p>{{ report.date }}</p>
+    <p>{{ report.description }}</p>
+    <p>{{ report.code }}</p>
+{% endblock %}
+```
+
+By ensuring the current user is the same as the user with which the queried test results are associated with, we successfully protect the system against this attack vector:
+
+```python
+@tst.route("/test", methods=["POST"])
+def generate_link():
+    code = request.form.get("code")
+    report = Report.query.filter_by(code=code).first()
+    if report is None:
+        return "No report found"
+    elif report.patientId != current_user.id:
+        return "You are not the owner of this report"
+    else:
+        return "Your link has been generated. Click <a href='/test/"+str(report.patientId)+"/'>here</a> to view your report."
+```
+
+```html
+{% extends "base.html" %}
+
+{% block container %}
+{% if current_user.is_authenticated and current_user.id == user.id %}
+    <h1>Exam Result</h1>
+    <p>{{ user.name }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.SSN }}</p>
+    <p>{{ user.morada }}</p>
+    <p>{{ user.contact }}</p>
+    <p>{{ report.date }}</p>
+    <p>{{ report.description }}</p>
+    <p>{{ report.code }}</p>
+{% else %}
+    Not your report 
+{% endif %}
+{% endblock %}
+```
+
+This results in the following behaviour:
+![](https://cdn.discordapp.com/attachments/852109272262770710/1042680360372277269/safetests.gif)
+
 ### CWE - 798 - Use of Hard-coded Credentials
+
+### CVSS Severity: 8.5
 
 #### Abstract
 
@@ -165,9 +320,25 @@ Lastly, because all installations of the program will use the same password, eve
 
 #### Exploitation
 
+By default, the app checks for the credentials where the email is admin@admin.com and the password is admin, as seen below:
+
+```python
+if email == 'admin' and password == 'admin':
+    user = User.query.filter_by(email="admin@admin.com").first()
+if user:
+    login_user(user, remember=True)
+    return redirect(url_for('profile.profile'))
+else:
+    return redirect(url_for('auth.login'))
+```
+
 #### Counteraction
 
+By removing these conditions and simply having a user with administrative privileges in the database, rogue agents can't access their credentials just by having the application's source code.
+
 ### CWE - 620 - Unverified Password Change
+
+### CVSS Severity: 8.3
 
 #### Abstract
 
@@ -189,6 +360,8 @@ Simply adding a field that requires the user to input their current password ens
 
 ### CWE - 521 - Weak Password Requirements
 
+### CVSS Severity: 6.2
+
 #### Abstract
 
 To provide an assertion of identity for a system user, authentication systems frequently rely on a memorized secret (also known as a password).
@@ -198,11 +371,37 @@ Choosing the right password requirements and enforcing them via implementation a
 
 #### Exploitation
 
-The exploitation of this 
+The exploitation of this vulnerability simply surrounds the fact that a simple password is itself simple to crack, and therefore dangerous to be allowed.
 
 #### Counteraction
 
+By simply forbidding users from using weak passwords, we counteract this weakness
+
+We do this by refusing to accept passwords that consist of simple or predictable sequences like being shorter than 8 characters in length, not having a digit, not having mixcased letters or a special symbol, using the following ``ìf`` statements:
+
+```python
+if len(new_password) < 8:
+    flash('length should be at least 8')
+    return redirect(url_for('profile.edit_profile'))
+elif not any(char.isdigit() for char in new_password) :
+    flash('Password should have at least one numeral')
+    return redirect(url_for('profile.edit_profile'))
+elif not any(char.isupper() for char in new_password):
+    flash('Password should have at least one uppercase letter')
+    return redirect(url_for('profile.edit_profile'))
+elif not any(char.islower() for char in new_password):
+    flash('Password should have at least one lowercase letter')
+    return redirect(url_for('profile.edit_profile'))
+elif not any(char in SpecialSym for char in new_password):
+    flash('Password should have at least one of the  special symbols')
+    return redirect(url_for('profile.edit_profile'))
+else: 
+    user.password = new_password
+```
+
 ### CWE - 522 - Insufficiently Protected Credentials
+
+### CVSS Severity: 6.8
 
 #### Abstract
 
@@ -212,7 +411,7 @@ The site sends or saves authentication credentials, but it does so in an unsafe 
 
 When editing the user profile, one can simply change the field in the URL corresponding to the user's ID to an ID of another user that exists, accessing, henceforth this user's profile editing page.
 
-![](https://cdn.discordapp.com/attachments/852109272262770710/1042649066900832277/editotheruser.gif)
+![](https://cdn.discordapp.com/attachments/852109272262770710/1042683221567090708/edituser.gif)
 
 #### Counteraction
 
@@ -233,6 +432,8 @@ def edit_profile():
 ```
 
 ### CWE-434 - Unrestricted Upload of File with Dangerous Type
+
+### CVSS Severity: 8.6
 
 #### Abstract
 
@@ -263,3 +464,9 @@ This is the system's behaviour after this change:
 ____ 
 
 ## 4. Final Considerations
+
+Besides the aforementioned attack vectors, we tried to implement and combat CWE-1336, commonly known as 'Template Injection' but this was counteracted in a previous version of Jinja2.
+
+This project heavily contributed to our awareness of the necessity of developing apps and services with a focus on security, highlighting the risks of not doing so.
+
+### Total CVSS Severity Score: 64.2
