@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
 from app import db
 from app.models import User, Appointment, Report
-from werkzeug.security import generate_password_hash
 
 utl = Blueprint('util', __name__)
 
@@ -13,7 +12,7 @@ def generate_users():
     users = [{
         "name": "Glory Powley",
         "email": "gpowley0@noaa.gov",
-        "password": generate_password_hash("a8dQZpjEg"),
+        "password": "a8dQZpjEg",
         "morada": "2 Summer Ridge Place",
         "isAdmin": False,
         "image": "a.png",
@@ -22,7 +21,7 @@ def generate_users():
     }, {
         "name": "Kele Jonsson",
         "email": "kjonsson1@redcross.org",
-        "password": generate_password_hash("78liTxLTt"),
+        "password": "78liTxLTt",
         "morada": "8 Kipling Point",
         "isAdmin": False,
         "image": "b.png",
@@ -31,7 +30,7 @@ def generate_users():
     }, {
         "name": "Minnaminnie Darlison",
         "email": "mdarlison2@oaic.gov.au",
-        "password": generate_password_hash("L7H7yH"),
+        "password": "L7H7yH",
         "morada": "055 Sherman Way",
         "isAdmin": False,
         "image": "c.png",
@@ -40,7 +39,7 @@ def generate_users():
     }, {
         "name": "Novelia Ford",
         "email": "nford3@usda.gov",
-        "password": generate_password_hash("ddCodJiCIE2"),
+        "password": "ddCodJiCIE2",
         "morada": "2662 Schmedeman Plaza",
         "isAdmin": False,
         "image": "d.png",
@@ -49,7 +48,7 @@ def generate_users():
     }, {
         "name": "Bradney Andrioli",
         "email": "bandrioli4@gravatar.com",
-        "password": generate_password_hash("Jv0SvfT"),
+        "password": "Jv0SvfT",
         "morada": "8065 Hagan Point",
         "isAdmin": False,
         "image": "e.png",
@@ -58,7 +57,7 @@ def generate_users():
     }, {
         "name": "Katherine Geater",
         "email": "kgeater5@csmonitor.com",
-        "password": generate_password_hash("gLesmOzwA"),
+        "password": "gLesmOzwA",
         "morada": "0994 Bultman Circle",
         "isAdmin": False,
         "image": "f.png",
@@ -67,7 +66,7 @@ def generate_users():
     }, {
         "name": "Kerianne Diggar",
         "email": "kdiggar6@sun.com",
-        "password": generate_password_hash("OMS1yy0CuBZh"),
+        "password": "OMS1yy0CuBZh",
         "morada": "5 Westport Park",
         "isAdmin": False,
         "image": "g.png",
@@ -76,7 +75,7 @@ def generate_users():
     }, {
         "name": "Katharine Callacher",
         "email": "kcallacher7@baidu.com",
-        "password": generate_password_hash("j48nxuG9"),
+        "password": "j48nxuG9",
         "morada": "65365 Warbler Drive",
         "isAdmin": False,
         "image": "h.png",
@@ -85,7 +84,7 @@ def generate_users():
     }, {
         "name": "Maribelle McGilroy",
         "email": "mmcgilroy8@msu.edu",
-        "password": generate_password_hash("saqZZwOi6ja"),
+        "password": "saqZZwOi6ja",
         "morada": "6 Ridgeview Center",
         "isAdmin": False,
         "image": "i.png",
@@ -94,7 +93,7 @@ def generate_users():
     }, {
         "name": "Ignacius MacCaffery",
         "email": "imaccaffery9@rambler.ru",
-        "password": generate_password_hash("6lmhKnR9"),
+        "password": "6lmhKnR9",
         "morada": "807 Maywood Hill",
         "isAdmin": False,
         "image": "j.png",
@@ -103,7 +102,7 @@ def generate_users():
     }, {
         "name": "Tadeas Joselovitch",
         "email": "tjoselovitch0@clickbank.net",
-        "password": generate_password_hash("btg9O1"),
+        "password": "btg9O1",
         "morada": "5098 Moland Drive",
         "isAdim": False,
         "image": "a.png",
@@ -112,7 +111,7 @@ def generate_users():
     }, {
         "name": "Larisa Ashbolt",
         "email": "lashbolt1@archive.org",
-        "password": generate_password_hash("iYW18p4AJ7r"),
+        "password": "iYW18p4AJ7r",
         "morada": "9 Erie Pass",
         "isAdim": False,
         "image": "b.png",
@@ -121,7 +120,7 @@ def generate_users():
     }, {
         "name": "Yul Luckin",
         "email": "yluckin2@amazon.co.uk",
-        "password": generate_password_hash("RRl4hDrfMra"),
+        "password": "RRl4hDrfMra",
         "morada": "5995 Scott Center",
         "isAdim": False,
         "image": "c.png",
@@ -130,7 +129,7 @@ def generate_users():
     }, {
         "name": "Filberte Ballach",
         "email": "fballach3@ucla.edu",
-        "password": generate_password_hash("btmaaJfRj"),
+        "password": "btmaaJfRj",
         "morada": "3 Gale Drive",
         "isAdim": False,
         "image": "d.png",
@@ -139,7 +138,7 @@ def generate_users():
     }, {
         "name": "Deanna Densumbe",
         "email": "ddensumbe4@gravatar.com",
-        "password": generate_password_hash("ps6WD4ij"),
+        "password": "ps6WD4ij",
         "morada": "53 Jackson Court",
         "isAdim": False,
         "image": "g.png",
@@ -148,7 +147,7 @@ def generate_users():
     }, {
         "name": "Tiffie Peattie",
         "email": "tpeattie5@house.gov",
-        "password": generate_password_hash("gvHzWU"),
+        "password": "gvHzWU",
         "morada": "7 Little Fleur Trail",
         "isAdim": False,
         "image": "h.png",
@@ -157,7 +156,7 @@ def generate_users():
     }, {
         "name": "Romona Paradine",
         "email": "rparadine6@creativecommons.org",
-        "password": generate_password_hash("SbJGTZ3H5Zn"),
+        "password": "SbJGTZ3H5Zn",
         "morada": "39861 Hansons Way",
         "isAdim": False,
         "image": "j.png",
@@ -166,7 +165,7 @@ def generate_users():
     }, {
         "name": "Jessica Tharme",
         "email": "jtharme7@timesonline.co.uk",
-        "password": generate_password_hash("ozKGJiAjpe"),
+        "password": "ozKGJiAjpe",
         "morada": "3 East Road",
         "isAdim": False,
         "image": "i.png",
@@ -175,7 +174,7 @@ def generate_users():
     }, {
         "name": "Calv Pawelke",
         "email": "cpawelke8@indiatimes.com",
-        "password": generate_password_hash("k6JIske"),
+        "password": "k6JIske",
         "morada": "9153 Main Plaza",
         "isAdim": False,
         "image": "e.png",
@@ -184,7 +183,7 @@ def generate_users():
     }, {
         "name": "Auberta Maliffe",
         "email": "amaliffe9@delicious.com",
-        "password": generate_password_hash("ljouXG0q5Y"),
+        "password": "ljouXG0q5Y",
         "morada": "1 Northridge Drive",
         "isAdim": False,
         "image": "a.png",
@@ -205,7 +204,7 @@ def generate_admin():
     db.session.execute("DELETE FROM user WHERE isAdmin = True;")
     db.session.commit()
 
-    admin = User(name="Admin", email="admin@admin.com", password=generate_password_hash("admin"), isAdmin=True)
+    admin = User(name="Admin", email="admin@admin.com", password="admin", isAdmin=True)
     try:
         db.session.add(admin)
         db.session.commit()

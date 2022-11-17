@@ -25,7 +25,7 @@ def appointment_post():
         db.session.add(new_appointment)
         db.session.commit()
         flash("Your appointment has been scheduled. Thank you!")
-        return redirect(url_for("main.index"))
+        return redirect(url_for("profile.profile"))
     except Exception as e:
         print(e)
         flash("There was an issue scheduling your appointment. Please try again.")

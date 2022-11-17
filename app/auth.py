@@ -25,7 +25,6 @@ def login_post():
             return redirect(url_for('profile.profile'))
         else:
             return redirect(url_for('auth.login'))
-
     result = db.session.execute("SELECT * FROM user WHERE email = '"+email+"' AND password = '"+password+"';").fetchall()
 
     if not result:
