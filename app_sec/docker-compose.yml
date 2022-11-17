@@ -5,6 +5,6 @@ services:
     ports:
       - "8000:5000"
     volumes:
-      - .:/app
+      - .:/app_sec
     environment:
       FLASK_DEBUG: True

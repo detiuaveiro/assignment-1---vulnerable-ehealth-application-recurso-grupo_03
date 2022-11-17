@@ -1,5 +1,5 @@
 FROM python:3.9
-WORKDIR /app
+WORKDIR /app_sec
 ENV FLASK_APP=__init__.py
 ENV FLASK_RUN_HOST=0.0.0.0
 RUN apt update -y
