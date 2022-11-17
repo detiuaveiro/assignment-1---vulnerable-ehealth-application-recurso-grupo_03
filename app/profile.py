@@ -36,7 +36,7 @@ def edit_profile(id):
 			user.password = generate_password_hash(new_password)
 		else:
 			flash('Passwords do not match.')
-			return redirect(url_for('profile.edit_profile'))
+			return render_template('edit_profile.html', user=user)
 	
 	if email:
 		user.email = email
