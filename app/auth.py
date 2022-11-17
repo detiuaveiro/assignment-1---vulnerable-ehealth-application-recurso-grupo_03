@@ -17,7 +17,6 @@ def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
 
-
     result = db.session.execute("SELECT * FROM user WHERE email = '"+email+"' AND password = '"+password+"';").fetchall()
 
     if not result:
