@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block container %}
+{% if current_user.is_authenticated and current_user.id == user.id %}
     <h1>Exam Result</h1>
     <p>{{ user.name }}</p>
     <p>{{ user.email }}</p>
@@ -10,4 +11,7 @@
     <p>{{ report.date }}</p>
     <p>{{ report.description }}</p>
     <p>{{ report.code }}</p>
+{% else %}
+    Not your report 
+{% endif %}
 {% endblock %}
