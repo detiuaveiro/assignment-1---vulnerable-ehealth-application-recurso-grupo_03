@@ -4,12 +4,13 @@ from .models import User
 from . import db
 import os
 
+
 prof = Blueprint('profile', __name__)
 
 @prof.route('/profile')
 @login_required
 def profile():
-	user = User.query.filter_by(id=current_user.id).first()
+	user = User.query.filter_by(id=current_user.id).first()	
 	return render_template('profile.html', user=user)
 
 @prof.route('/edit_profile/<id>', methods=['GET'])

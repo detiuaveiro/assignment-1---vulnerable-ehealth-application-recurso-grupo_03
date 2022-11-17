@@ -28,7 +28,7 @@
                         {% endfor %}
                     {% endif %}
                 {% endwith %}
-                <input id="email" type="text" name="email" placeholder="Email">
+                <input id="email" type="email" name="email" placeholder="Email">
                 <input id="pass" type="password" name="password" placeholder="Password">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             </div>

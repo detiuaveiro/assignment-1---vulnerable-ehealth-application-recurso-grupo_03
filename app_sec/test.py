@@ -31,5 +31,3 @@ def generate_link():
         return "No report found"
     else:
         return "Your link has been generated. Click <a href='/test/"+str(report.patientId)+"/'>here</a> to view your report."
-
-
