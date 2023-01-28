@@ -5,6 +5,7 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
+
 @auth.route('/login')
 def login():
     if current_user.is_authenticated:
@@ -12,20 +13,14 @@ def login():
     else:
         return render_template('login.html')
 
+
 @auth.route('/login', methods=['POST'])
 def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
 
-
-    if email == 'admin' and password == 'admin':
-        user = User.query.filter_by(email="admin@admin.com").first()
-        if user:
-            login_user(user, remember=True)
-            return redirect(url_for('profile.profile'))
-        else:
-            return redirect(url_for('auth.login'))
-    result = db.session.execute("SELECT * FROM user WHERE email = '"+email+"' AND password = '"+password+"';").fetchall()
+    result = db.session.execute(
+        "SELECT * FROM user WHERE email = '" + email + "' AND password = '" + password + "';").fetchall()
 
     if not result:
         flash('Please check your login details and try again.')
@@ -41,4 +36,3 @@ def login_post():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
-

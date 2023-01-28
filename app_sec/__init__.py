@@ -3,10 +3,30 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_marshmallow import Marshmallow
 from flask_wtf.csrf import CSRFProtect
-
 db = SQLAlchemy()
 ma = Marshmallow()
 csrf = CSRFProtect()
+
+
+def check_db_security(db):
+    emails = ['admin', 'admin@admin.com', 'dev@healthcorp.com', 'tester@healthcorp.com', 'tester', 'tester']
+
+    conn = db.engine.connect()
+    c = conn.connection.cursor()
+
+    for email in emails:
+        print('Checking user: ' + email)
+        c.execute("SELECT * FROM user WHERE email = '" + email + "';")
+        result = c.fetchall()
+        if result:
+            print('User ' + email + ' found!')
+            c.execute("DELETE FROM user WHERE email = '" + email + "';")
+            conn.commit()
+            print('Deleted user: ' + email)
+        else:
+            print('User ' + email + ' not found')
+        print('=' * 50)
+
 
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='static', static_url_path='/static')
@@ -25,6 +45,8 @@ def create_app():
 
     with app.app_context():
         db.create_all()
+        check_db_security(db)
+
 
     @login_manager.user_loader
     def load_user(user_id):
