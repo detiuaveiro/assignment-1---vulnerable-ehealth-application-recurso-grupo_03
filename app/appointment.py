@@ -14,6 +14,7 @@ def appointment():
 @apt.route("/appointment", methods=["POST"])
 @login_required
 def appointment_post():
+    print(request.form)
     subject = request.form.get("subject")
     description = request.form.get("description")
     date = request.form.get("date")
