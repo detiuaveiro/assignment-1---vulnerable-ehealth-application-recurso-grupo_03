@@ -2,7 +2,7 @@
 
 #### Project 1 - SIO
 
-___
+---
 
 ## ![](https://cdn.discordapp.com/attachments/852109272262770710/1042518122550263848/logo-no-backgroundehealth.png)
 
@@ -28,7 +28,7 @@ ___
    
    - CWE - 620
    
-   - CWE - 521 
+   - CWE - 521
    
    - CWE - 522
    
@@ -36,19 +36,19 @@ ___
 
 4. Final Considerations
 
-___
+---
 
 ## 1. Introduction
 
 The present report serves as documentation for Project 1 of SIO which intends to explore the possible vulnerabiilites, their consequences and their counters in a webapp for a ficitious clinic: eHealth Corp.
 
-____
+---
 
 ## 2. Overview
 
 To implement and counteract our selected vulnerabilites we used Flask: HTML with Boostrap on the frontend, data renderization with templating using Jinja2 and a SQLite database for data persistency on the backend.
 
-____
+---
 
 ## 3. Vulnerabilites
 
@@ -56,13 +56,13 @@ ____
 
 ### CVSS
 
-#### Severity: 6.5
+##### Severity: 6.5
 
-#### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+##### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
 
-#### Breakdown
+##### Breakdown
 
-**AV** - **N** 
+**AV** - **N**
 
 **AC** - **L**
 
@@ -77,8 +77,6 @@ ____
 **I** - **L**
 
 **A** - **N**
-
-
 
 #### Abstract
 
@@ -100,7 +98,7 @@ The ability to read, edit, and steal confidential data enables attackers to easi
 
 #### Exploitation
 
-In this case, SQL injection is possible in the password field of the login page, by entering an input that abuses the SQL quotation notation, for example '  or 1=1 -- as such:
+In this case, SQL injection is possible in the password field of the login page, by entering an input that abuses the SQL quotation notation, for example ' or 1=1 -- as such:
 
 ![](https://cdn.discordapp.com/attachments/852109272262770710/1042661780205342750/injectionunsafe.gif)
 
@@ -127,7 +125,29 @@ This results in the prevention of any type of SQL injection in this input field,
 
 ### CWE - 79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
 
-### CVSS Severity: 5.7
+CVSS
+
+##### Severity: 6.5
+
+##### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+
+##### Breakdown
+
+**AV** - **N**
+
+**AC** - **L**
+
+**PR** - **N**
+
+**UI** - **N**
+
+**S** - **U**
+
+**C** - **L**
+
+**I** - **L**
+
+**A** - **N**
 
 #### Abstract
 
@@ -137,7 +157,7 @@ Attackers can deliver malicious code, typically in the form of a browser side sc
 
 When the victim has administrator rights to control a website, the attacker can send malicious requests on the victim's behalf, which could be extremely damaging for the website.
 
-XSS attacks are broadly classified into two types: non-persistent (reflected) and persistent 
+XSS attacks are broadly classified into two types: non-persistent (reflected) and persistent
 
 - The most frequent type of cross-site scripting is non-persistent (reflected) XSS.
   The injected malicious script is "reflected" off the web server as a response that contains some or all of the input supplied to the server as part of the request in this type of attack.
@@ -145,7 +165,7 @@ XSS attacks are broadly classified into two types: non-persistent (reflected) an
   Because it came from a trustworthy server, the code is then executed by the browser.
 
 - The malicious script is stored on the victim web-server in a persistent (stored) XSS attack.
-  The injected script is subsequently permanently saved on the web pages and returned to any user who accesses the script-containing web page. 
+  The injected script is subsequently permanently saved on the web pages and returned to any user who accesses the script-containing web page.
   
   This is the type of XSS that we will be implementing and combating in this project.
 
@@ -219,12 +239,34 @@ The result is as follows, the script is input into the appointments table as lit
 
 ### CWE - 352 - Cross-Site Request Forgery
 
-### CVSS Severity: 7.2
+CVSS
+
+##### Severity: 6.5
+
+##### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+
+##### Breakdown
+
+**AV** - **N**
+
+**AC** - **L**
+
+**PR** - **N**
+
+**UI** - **N**
+
+**S** - **U**
+
+**C** - **L**
+
+**I** - **L**
+
+**A** - **N
 
 #### Abstract
 
 When a web server is constructed to receive a request from a client without any way for verifying that it was submitted intentionally, an attacker may be able to fool a client into sending an unintended request to the web server, which will be viewed as a genuine request.
-This can be accomplished by a URL, image load, XMLHttpRequest, or other means, and can result in data exposure or inadvertent code execution. 
+This can be accomplished by a URL, image load, XMLHttpRequest, or other means, and can result in data exposure or inadvertent code execution.
 
 #### Exploitation
 
@@ -247,7 +289,29 @@ This causes the system to reject the request as such:
 
 ### CWE - 488 - Exposure of Data Element to Wrong Session
 
-### CVSS Severity: 4.2
+CVSS
+
+##### Severity: 6.5
+
+##### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+
+##### Breakdown
+
+**AV** - **N**
+
+**AC** - **L**
+
+**PR** - **N**
+
+**UI** - **N**
+
+**S** - **U**
+
+**C** - **L**
+
+**I** - **L**
+
+**A** - **N
 
 #### Abstract
 
@@ -329,18 +393,38 @@ This results in the following behaviour:
 
 ### CWE - 798 - Use of Hard-coded Credentials
 
-### CVSS Severity: 8.5
+CVSS
 
-#### Abstract
+##### Severity: 6.5
+
+##### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+
+##### Breakdown
+
+**AV** - **N**
+
+**AC** - **L**
+
+**PR** - **N**
+
+**UI** - **N**
+
+**S** - **U**
+
+**C** - **L**
+
+**I** - **L**
+
+**A** - **N#### Abstract
 
 Hard-coded credentials generally leave a big gap that allows an attacker to bypass the authentication that the software administrator has configured.
 This vulnerability may be difficult to discover for the system administrator.
-Even if it is detected, it can be impossible to repair, thus the administrator may be obliged to disable the product completely. 
+Even if it is detected, it can be impossible to repair, thus the administrator may be obliged to disable the product completely.
 
 In this project, the inbound variation of this vulnerability will be explored: this is where a default administrator account is generated and a basic password is hard-coded into the product and connected with that account.
 This hard-coded password is the same for each installation of the product, and system administrators often cannot change or disable it without manually editing the application or otherwise updating the software.
 If the password is ever found or publicized (which is often on the Internet), anyone with this password can access the product.
-Lastly, because all installations of the program will use the same password, even across businesses, huge assaults such as worms are possible. 
+Lastly, because all installations of the program will use the same password, even across businesses, huge assaults such as worms are possible.
 
 In order to address this security risk, it is important to avoid using hard-coded credentials in software development. Instead, administrators should be required to create unique and secure passwords for each installation of the product, and the product should be designed to store these credentials securely. This can help to prevent unauthorized access and minimize the potential damage from a security breach. 
 Additionally, regular security audits and testing can help to identify and address any hard-coded credentials that may be present in the product.
@@ -357,7 +441,7 @@ password: admin
 
 #### Counteraction
 
-One possible solution to this, and the one we chose to implement, is to develop a script that does a sanity check on the database that is exectuted on deploy, thereby ensuring that the product is deployed in a clean state. 
+One possible solution to this, and the one we chose to implement, is to develop a script that does a sanity check on the database that is exectuted on deploy, thereby ensuring that the product is deployed in a clean state.
 
 Our implementation of this solution is as follows:
 
@@ -388,13 +472,35 @@ This type of password policy helps to ensure that new users start using secure p
 
 ### CWE - 620 - Unverified Password Change
 
-### CVSS Severity: 8.3
+CVSS
+
+##### Severity: 6.5
+
+##### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+
+##### Breakdown
+
+**AV** - **N**
+
+**AC** - **L**
+
+**PR** - **N**
+
+**UI** - **N**
+
+**S** - **U**
+
+**C** - **L**
+
+**I** - **L**
+
+**A** - **N**
 
 #### Abstract
 
 The product does not need knowledge of the original password or the usage of another type of authentication when creating a new password for a user.
 
-An attacker might use this to change passwords for another account, acquiring the rights associated with that user. 
+An attacker might use this to change passwords for another account, acquiring the rights associated with that user.
 
 #### Exploitation
 
@@ -410,14 +516,36 @@ Simply adding a field that requires the user to input their current password ens
 
 ### CWE - 521 - Weak Password Requirements
 
-### CVSS Severity: 6.2
+#### CVSS
+
+##### Severity: 6.5
+
+##### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+
+##### Breakdown
+
+**AV** - **N**
+
+**AC** - **L**
+
+**PR** - **N**
+
+**UI** - **N**
+
+**S** - **U**
+
+**C** - **L**
+
+**I** - **L**
+
+**A** - **N**
 
 #### Abstract
 
 To provide an assertion of identity for a system user, authentication systems frequently rely on a memorized secret (also known as a password).
 As a result, it is critical that this password be sufficiently complex and difficult for an attacker to guess.
 The particular criteria for how complicated a password must be vary according to the type of system being secured.
-Choosing the right password requirements and enforcing them via implementation are important to the authentication mechanism's overall success. 
+Choosing the right password requirements and enforcing them via implementation are important to the authentication mechanism's overall success.
 
 #### Exploitation
 
@@ -431,33 +559,55 @@ We do this by refusing to accept passwords that consist of simple or predictable
 
 ```python
 if len(new_password) < 8:
-    flash('length should be at least 8')
-    return redirect(url_for('profile.edit_profile'))
+    flash('length should be at least 8')
+    return redirect(url_for('profile.edit_profile'))
 elif not any(char.isdigit() for char in new_password) :
-    flash('Password should have at least one numeral')
-    return redirect(url_for('profile.edit_profile'))
+    flash('Password should have at least one numeral')
+    return redirect(url_for('profile.edit_profile'))
 elif not any(char.isupper() for char in new_password):
-    flash('Password should have at least one uppercase letter')
-    return redirect(url_for('profile.edit_profile'))
+    flash('Password should have at least one uppercase letter')
+    return redirect(url_for('profile.edit_profile'))
 elif not any(char.islower() for char in new_password):
-    flash('Password should have at least one lowercase letter')
-    return redirect(url_for('profile.edit_profile'))
+    flash('Password should have at least one lowercase letter')
+    return redirect(url_for('profile.edit_profile'))
 elif not any(char in SpecialSym for char in new_password):
-    flash('Password should have at least one of the  special symbols')
-    return redirect(url_for('profile.edit_profile'))
+    flash('Password should have at least one of the  special symbols')
+    return redirect(url_for('profile.edit_profile'))
 else: 
-    user.password = new_password
+    user.password = new_password
 ```
 
 ### CWE - 522 - Insufficiently Protected Credentials
 
-### CVSS Severity: 6.8
+#### CVSS
+
+##### Severity: 6.5
+
+##### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+
+##### Breakdown
+
+**AV** - **N**
+
+**AC** - **L**
+
+**PR** - **N**
+
+**UI** - **N**
+
+**S** - **U**
+
+**C** - **L**
+
+**I** - **L**
+
+**A** - **N**
 
 #### Abstract
 
-The site sends or saves authentication credentials, but it does so in an unsafe manner that enables for unwanted monitoring and/or extraction. 
+The site sends or saves authentication credentials, but it does so in an unsafe manner that enables for unwanted monitoring and/or extraction.
 
-#### Exploitation
+#### Exploitat
 
 When editing the user profile, one can simply change the field in the URL corresponding to the user's ID to an ID of another user that exists, accessing, henceforth this user's profile editing page.
 
@@ -483,11 +633,33 @@ def edit_profile():
 
 ### CWE-434 - Unrestricted Upload of File with Dangerous Type
 
-### CVSS Severity: 8.6
+#### CVSS
+
+##### Severity: 6.5
+
+##### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+
+##### Breakdown
+
+**AV** - **N**
+
+**AC** - **L**
+
+**PR** - **N**
+
+**UI** - **N**
+
+**S** - **U**
+
+**C** - **L**
+
+**I** - **L**
+
+**A** - **N**
 
 #### Abstract
 
-The software enables the upload or transfer of risky file types that can be automatically processed within the environment of the product. 
+The software enables the upload or transfer of risky file types that can be automatically processed within the environment of the product.
 
 #### Exploitation
 
@@ -511,7 +683,7 @@ This is the system's behaviour after this change:
 
 ![](https://cdn.discordapp.com/attachments/852109272262770710/1042657675688808530/changeppicsafe.gif)
 
-____ 
+---
 
 ## 4. Final Considerations
 
