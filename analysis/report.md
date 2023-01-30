@@ -54,7 +54,31 @@ ____
 
 ### CWE - 89 - Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
 
-### CVSS Severity: 8.7
+### CVSS
+
+#### Severity: 6.5
+
+#### Vector String: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+
+#### Breakdown
+
+**AV** - **N** 
+
+**AC** - **L**
+
+**PR** - **N**
+
+**UI** - **N**
+
+**S** - **U**
+
+**C** - **L**
+
+**I** - **L**
+
+**A** - **N**
+
+
 
 #### Abstract
 
@@ -358,7 +382,9 @@ def check_db_security(db):
         print('=' * 50)
 ```
 
-Another way to mitigate this vulnerability would be to force users to change password after their first successful login, nullifying the dangers of having the hardcoded credentials in the first place.
+Forcing users to change their password on first use is a security measure that can help to mitigate the risk posed by hard-coded credentials in software systems. This approach works by requiring new users to create a unique and secure password immediately after their first successful login. By doing this, the hard-coded credentials are effectively nullified, as the attacker would need to know the newly created password in order to gain access to the product.
+
+This type of password policy helps to ensure that new users start using secure passwords right away, reducing the risk of unauthorized access. In addition, forcing password changes on a regular basis can help to maintain the security of the system over time. By implementing this type of security measure, organizations can help to protect their data and systems from potential security breaches caused by hard-coded credentials.
 
 ### CWE - 620 - Unverified Password Change
 
