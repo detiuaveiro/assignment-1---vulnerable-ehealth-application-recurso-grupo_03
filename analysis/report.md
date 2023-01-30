@@ -15,6 +15,7 @@
 2. Overview
 
 3. Vulnerabilites
+   <<<<<<< HEAD
    
    - CWE - 89
    
@@ -34,7 +35,28 @@
    
    - CWE - 434
 
-4. Final Considerations
+=======
+
+- CWE - 89
+
+- CWE - 79
+
+- CWE - 352
+
+- CWE - 488
+
+- CWE - 798
+
+- CWE - 620
+
+- CWE - 521
+
+- CWE - 522
+
+- CWE - 434
+
+> > > > > > > 6957a9dae29c7237f3a1728c02a0f4c4205702f5
+> > > > > > > 4. Final Considerations
 
 ---
 
