@@ -15,28 +15,6 @@
 2. Overview
 
 3. Vulnerabilites
-   <<<<<<< HEAD
-   
-   - CWE - 89
-   
-   - CWE - 79
-   
-   - CWE - 352
-   
-   - CWE - 488
-   
-   - CWE - 798
-   
-   - CWE - 620
-   
-   - CWE - 521
-   
-   - CWE - 522
-   
-   - CWE - 434
-
-=======
-
 - CWE - 89
 
 - CWE - 79
@@ -54,8 +32,6 @@
 - CWE - 522
 
 - CWE - 434
-
-> > > > > > > 
 
 ---
 
