@@ -313,28 +313,52 @@ Hard-coded credentials generally leave a big gap that allows an attacker to bypa
 This vulnerability may be difficult to discover for the system administrator.
 Even if it is detected, it can be impossible to repair, thus the administrator may be obliged to disable the product completely. 
 
-In this project, the inbound variation of this vulnerability will be explored, this is where a default administrator account is generated and a basic password is hard-coded into the product and connected with that account.
+In this project, the inbound variation of this vulnerability will be explored: this is where a default administrator account is generated and a basic password is hard-coded into the product and connected with that account.
 This hard-coded password is the same for each installation of the product, and system administrators often cannot change or disable it without manually editing the application or otherwise updating the software.
 If the password is ever found or publicized (which is often on the Internet), anyone with this password can access the product.
 Lastly, because all installations of the program will use the same password, even across businesses, huge assaults such as worms are possible. 
 
+In order to address this security risk, it is important to avoid using hard-coded credentials in software development. Instead, administrators should be required to create unique and secure passwords for each installation of the product, and the product should be designed to store these credentials securely. This can help to prevent unauthorized access and minimize the potential damage from a security breach. 
+Additionally, regular security audits and testing can help to identify and address any hard-coded credentials that may be present in the product.
+
 #### Exploitation
 
-By default, the app checks for the credentials where the email is admin@admin.com and the password is admin, as seen below:
+During development, several test users can be created and left, by accident, in the database tables , for example:
 
-```python
-if email == 'admin' and password == 'admin':
-    user = User.query.filter_by(email="admin@admin.com").first()
-if user:
-    login_user(user, remember=True)
-    return redirect(url_for('profile.profile'))
-else:
-    return redirect(url_for('auth.login'))
+```
+email: admin@admin.com
+
+password: admin
 ```
 
 #### Counteraction
 
-By removing these conditions and simply having a user with administrative privileges in the database, rogue agents can't access their credentials just by having the application's source code.
+One possible solution to this, and the one we chose to implement, is to develop a script that does a sanity check on the database that is exectuted on deploy, thereby ensuring that the product is deployed in a clean state. 
+
+Our implementation of this solution is as follows:
+
+```python
+def check_db_security(db):
+    emails = ['admin', 'admin@admin.com', 'dev@healthcorp.com', 'tester@healthcorp.com', 'tester', 'tester']
+
+    conn = db.engine.connect()
+    c = conn.connection.cursor()
+
+    for email in emails:
+        print('Checking user: ' + email)
+        c.execute("SELECT * FROM user WHERE email = '" + email + "';")
+        result = c.fetchall()
+        if result:
+            print('User ' + email + ' found!')
+            c.execute("DELETE FROM user WHERE email = '" + email + "';")
+            conn.commit()
+            print('Deleted user: ' + email)
+        else:
+            print('User ' + email + ' not found')
+        print('=' * 50)
+```
+
+Another way to mitigate this vulnerability would be to force users to change password after their first successful login, nullifying the dangers of having the hardcoded credentials in the first place.
 
 ### CWE - 620 - Unverified Password Change
 
