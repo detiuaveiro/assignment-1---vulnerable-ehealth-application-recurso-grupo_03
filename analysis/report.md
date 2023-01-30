@@ -55,8 +55,7 @@
 
 - CWE - 434
 
-> > > > > > > 6957a9dae29c7237f3a1728c02a0f4c4205702f5
-> > > > > > > 4. Final Considerations
+> > > > > > > 
 
 ---
 
