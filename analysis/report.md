@@ -4,7 +4,7 @@
 
 ---
 
-##
+## ![](https://cdn.discordapp.com/attachments/852109272262770710/1042518122550263848/logo-no-backgroundehealth.png)
 
 ---
 
