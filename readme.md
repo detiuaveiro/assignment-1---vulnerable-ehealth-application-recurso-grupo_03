@@ -6,8 +6,6 @@
 
 - Added CVSS calculations to all CWEs
 
-
-
 ## Description
 
 eHealth Corp is a fictitious clinic that has its services on display on its main page and allows for users to contact the clinic without being logged in. For patients, it allows for the booking of appointments, some personalization of their profiles, the viewing of their booked appointments and the downloading of test results associated with them by introducing the respective code.
