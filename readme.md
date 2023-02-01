@@ -38,6 +38,15 @@ Example:
 ./run.sh -a app -p 8080
 
 ```
+### CSRF
+
+With the unsafe version of the app running, run the following command in another terminal in the analysis directory:
+
+```shell
+python3 -m http.server --directory . <PORT> 
+```
+
+Note: the scam site will only be visible on 127.0.0.1:<PORT>.
 **IMPORTANT**
 When you start the application for the first time you must run the following urls to populate the database
 
