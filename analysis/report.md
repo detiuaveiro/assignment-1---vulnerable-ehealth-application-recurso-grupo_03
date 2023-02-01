@@ -8,6 +8,10 @@
 
 ---
 
+
+
+
+
 ## Index
 
 1. Introduction
@@ -134,7 +138,7 @@ CVSS
 | S      | C     | The vulnerability only affects the security of individual resources, such as a single user account, rather than the entire system.                                                                                                                         |
 | C      | H     | The vulnerability allows an attacker to access sensitive information or steal user data, such as session tokens or sensitive personal information. This could lead to unauthorized access to the target user's account or other sensitive information.     |
 | I      | N     | The vulnerability does not allow an attacker to modify data, but it can still be used to steal sensitive information or gain unauthorized access.                                                                                                          |
-| A      | N     | The vulnerability does not affect the availability of the affected system or data, but it still poses a serious security risk.**                                                                                                                           |
+| A      | N     | The vulnerability does not affect the availability of the affected system or data, but it still poses a serious security risk.                                                                                                                             |
 
 #### Abstract
 
@@ -250,24 +254,35 @@ CVSS
 When a web server is constructed to receive a request from a client without any way for verifying that it was submitted intentionally, an attacker may be able to fool a client into sending an unintended request to the web server, which will be viewed as a genuine request.
 This can be accomplished by a URL, image load, XMLHttpRequest, or other means, and can result in data exposure or inadvertent code execution.
 
+To prevent CSRF attacks, web developers can implement measures such as using anti-CSRF tokens, rate-limiting requests, and same-site cookie policies.
+
 #### Exploitation
 
-By producing a POST request externally from the application, one can easliy inject fake contacts, since this is not a page where login is required, like so:
+For the purposes of this assignment, we chose to implement a fake, scam site, that would resemble the overall appearance of our real site, enough so that at least some more naïve users would fall for, as seen below:
 
-![](https://cdn.discordapp.com/attachments/852109272262770710/1042689760868704306/image.png)
-![](https://cdn.discordapp.com/attachments/852109272262770710/1042689842322079865/image.png)
+![](https://media.discordapp.net/attachments/852109272262770710/1070352387778293882/image.png?width=1294&height=661)
+
+It appears to offer free checkups, but in reality, when clicked on, will make use of the user's stored cookies in order to inject a ficticious appointment in their account, as seen on the bottom of this user's appointment list:
+
+![](https://media.discordapp.net/attachments/852109272262770710/1070352493105643530/image.png?width=1004&height=661)
+
+Here's a dramatization of how this vulnerability could be exploited in a real world scenario, the user finds themselves on our scam site and wants their free checkup, so, logically, they click on the button in order to proceed. By doing this, when returning to the real eHealth Corp site, they are confronted with and alert injected by the attacker, alongside a new, ficticious appointment:
+
+![](https://media.discordapp.net/attachments/852109272262770710/1070351112508547172/ezgif.com-gif-maker.gif)
 
 #### Counteraction
 
-By using the **flask-wtf** library, it's possible to stop unintended POSTs from successfully submitting, by associating an authentication token to these requests through the use of an input tag in HTML like so:
+**Flask-WTF** is a popular library for creating web forms in Flask and it provides built-in protection against CSRF attacks by including an anti-CSRF token in each form rendered by the library.
+
+When a form is generated, Flask-WTF adds a hidden field with a unique token to the HTML code. This token is then sent back to the server when the form is submitted. On the server, Flask-WTF checks the token against the stored value and only processes the form if the token is valid. This way, even if an attacker is able to trick a user into submitting a form, the attack will be rejected because the attacker does not have access to the valid anti-CSRF token.
+
+This way, attackers can't submit anything without having they themselves access to the page where the data they intend to submit is meant to be submitted in.
+
+In terms of implementing this fix, it's as simple as importing the aforementioned library and adding a hidden input as the one seen below:
 
 ```html
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 ```
-
-This causes the system to reject the request as such:
-
-![](https://media.discordapp.net/attachments/852109272262770710/1042687422137368626/image.png?width=1055&height=623)
 
 ### CWE - 488 - Exposure of Data Element to Wrong Session
 
@@ -463,7 +478,7 @@ This type of password policy helps to ensure that new users start using secure p
 | S      | U     | The vulnerability affects the security of the entire system, potentially exposing all user data or the integrity of the system.                                                                                                           |
 | C      | H     | The vulnerability allows an attacker to access sensitive information or steal user data, such as changing the target user's password and compromising their account.                                                                      |
 | I      | H     | The vulnerability allows an attacker to modify data, such as changing the target user's account settings or making unauthorized purchases.                                                                                                |
-| A      | N     | The vulnerability does not affect the availability of the affected system or data, but it still poses a serious security risk.**                                                                                                          |
+| A      | N     | The vulnerability does not affect the availability of the affected system or data, but it still poses a serious security risk.                                                                                                            |
 
 #### Abstract
 
@@ -502,7 +517,7 @@ Simply adding a field that requires the user to input their current password ens
 | S      | U     | The vulnerability affects the security of the entire system, potentially exposing all user data or the integrity of the system.                                                                                                                                      |
 | C      | H     | The vulnerability allows an attacker to access sensitive information or steal user data, such as compromising the target user's account.                                                                                                                             |
 | I      | H     | The vulnerability allows an attacker to modify data, such as changing the target user's account settings or making unauthorized purchases.                                                                                                                           |
-| A      | N     | The vulnerability does not affect the availability of the affected system or data, but it still poses a serious security risk.**                                                                                                                                     |
+| A      | N     | The vulnerability does not affect the availability of the affected system or data, but it still poses a serious security risk.                                                                                                                                       |
 
 #### Abstract
 
@@ -566,7 +581,7 @@ else:
 
 The site sends or saves authentication credentials, but it does so in an unsafe manner that enables for unwanted monitoring and/or extraction.
 
-#### Exploitat
+#### Exploitation
 
 When editing the user profile, one can simply change the field in the URL corresponding to the user's ID to an ID of another user that exists, accessing, henceforth this user's profile editing page.
 
